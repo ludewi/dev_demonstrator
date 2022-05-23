@@ -272,7 +272,7 @@ def app():
         import multiprocessing 
         
 
-        p1 = multiprocessing.Process(target=start_train)
+        #p1 = multiprocessing.Process(target=start_train)
         
 
 
@@ -288,7 +288,7 @@ def app():
         with st.spinner('Server prüft ob benötige Anzahl von Clients mit dem Server verbunden sind, um das Training starten zu können...'):
             while True:
                 
-                p1.start()
+                #p1.start()
             #cl1.train(x_train, x_test, y_train, y_test)
             
 
