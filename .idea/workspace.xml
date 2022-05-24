@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/demonstrator_allinone.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demonstrator_allinone_1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demonstrator_allinone.py" beforeDir="false" afterPath="$PROJECT_DIR$/demonstrator_allinone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/st_input.py" beforeDir="false" afterPath="$PROJECT_DIR$/st_input.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/test.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/st_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/st_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/st_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/st_result.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,14 +36,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/lukas/PycharmProjects/dev_demonstrator"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -61,7 +65,7 @@
       <workItem from="1653050739775" duration="223000" />
       <workItem from="1653051707519" duration="3847000" />
       <workItem from="1653298295092" duration="802000" />
-      <workItem from="1653300963792" duration="11789000" />
+      <workItem from="1653300963792" duration="26868000" />
     </task>
     <servers />
   </component>
