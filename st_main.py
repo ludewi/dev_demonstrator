@@ -1,5 +1,5 @@
 import st_info as page_info
-import demonstrator_allinone as page_input
+import st_demonstrator as page_input
 import st_result as page_result
 import streamlit as st
 import utils as utl
