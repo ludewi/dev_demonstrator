@@ -7,7 +7,9 @@ from streamlit_drawable_canvas import st_canvas
 
 
 local_hist = []
+fit_hist = []
 fed_hist = []
+fed_eval_hist = []
 local_train_log = ""
 fed_train_log = ""
 
@@ -16,15 +18,19 @@ def app():
     st.subheader("Ergebnisseite")
 
     if len(local_hist) != 0:
-        df1_temp = pd.DataFrame(data=local_hist, columns=["Local Accuracy per Round"])
+        dfeval_temp = pd.DataFrame(data=local_hist, columns=["Local Accuracy per Round (eval)"])
+        dffit_temp = pd.DataFrame(data=fit_hist, columns=["Local Accuracy per Round (fit)"])
         #st.dataframe(df1_temp)
 
     if len(fed_hist) != 0:
-        df2_temp = pd.DataFrame(data=fed_hist,columns=["Federated Accuracy per Round"]) #columns=["Ep1", "Ep2", "Ep3", "Ep4", "Ep5", "Ep6", "Ep7", "Ep8", "Ep9", "Ep10"]
-        #st.dataframe(df2_temp)
+        
+        df_fed_fit_temp = pd.DataFrame(data=fed_hist,columns=["Federated Accuracy per Round (fit)"]) #columns=["Ep1", "Ep2", "Ep3", "Ep4", "Ep5", "Ep6", "Ep7", "Ep8", "Ep9", "Ep10"]
+        df_fed_val_temp = pd.DataFrame(data=fed_eval_hist,columns=["Federated Accuracy per Round (eval)"])
+        
+    #st.dataframe(df2_temp)
         #st.line_chart(fed_hist)
         
-        result = pd.concat([df1_temp, df2_temp], axis=1)
+        result = pd.concat([dfeval_temp, dffit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
         st.dataframe(result)
         st.line_chart(result)
     
@@ -46,8 +52,8 @@ def app():
         canvas_result = st_canvas(
             fill_color="rgba(255, 165, 0, 0.3)",
             stroke_width=20,
-            stroke_color="#000000",
-            background_color="#ffffff",
+            stroke_color="#ffffff",
+            background_color="#000000",
             update_streamlit=True,
             height=300,
             width=300,
