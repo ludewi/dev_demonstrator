@@ -14,6 +14,8 @@ from sklearn.model_selection import train_test_split
 from streamlit_drawable_canvas import st_canvas
 import cv2
 
+from keras.preprocessing.image import ImageDataGenerator
+
 # for caputring stdout
 import contextlib
 import io
@@ -252,8 +254,15 @@ def app():
                           loss="sparse_categorical_crossentropy",
                           metrics=["accuracy"])
             st.success('Aktuelles Modell erfolgreich vom Server geladen!')
-            (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-            #x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
+            #(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+            x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
+
+            datagen = ImageDataGenerator(
+                        rotation_range=10,  
+                        zoom_range = 0.10,  
+                        width_shift_range=0.1, 
+                        height_shift_range=0.1)       
+    
 
 
             check_flag = st.empty()
@@ -305,7 +314,8 @@ def app():
 
                 with st.spinner(f"Wir befinden uns gerade in Runde {round_counter} des föderrierten Trainings... "):
                     model.set_weights(parameters)
-                    r = model.fit(x_train, y_train, epochs=2, batch_size=32)
+                    r = model.fit_generator(datagen.flow(x_train,y_train, batch_size=64), epochs=2)
+                    fed_score = model.evaluate(x_test, y_test, verbose=0)
                     model.save("fit_global_model")
                     st.success(f'Training der Runde {round_counter} erfolgreich beendet und aktualisiertes Modell mit angepassten Gewichten wurde erfolgreich an Server zurück geschickt!')
 
@@ -314,6 +324,7 @@ def app():
 
                 hist = r.history
                 st_ru.fed_hist.append(hist["accuracy"][-1])
+                st_ru.fed_eval_hist.append(fed_score[1])
                 global local_weights
                 local_weights = model.get_weights()
                 st.info("Warte auf aktualisierte Gewichte von Server ...")
@@ -328,7 +339,7 @@ def app():
         # Start Flower client
         captured_output_fed = io.StringIO()
         with contextlib.redirect_stdout(captured_output_fed):
-            fl.client.start_numpy_client("localhost:8080", client=CifarClient())
+            fl.client.start_numpy_client("10.166.33.132:2103", client=CifarClient())
         st_ru.fed_train_log = captured_output_fed.getvalue()
 
         ###### train local #####
@@ -365,9 +376,11 @@ def app():
             for _ in range(5):
                 captured_output_local = io.StringIO()
                 with contextlib.redirect_stdout(captured_output_local):
-                    model_local.fit(x_train, y_train, epochs=2, batch_size=32)
+                    fit_score = model_local.fit(x_train, y_train, epochs=2, batch_size=32)
                 st_ru.local_train_log = captured_output_local.getvalue()
-
+                
+                fit_hist = fit_score.history
+                st_ru.fit_hist.append(fit_hist["accuracy"][-1])
                 score = model_local.evaluate(x_test, y_test, verbose=0)
                 st_ru.local_hist.append(score[1])
             st.success("Lokales Training abgeschlossen")
