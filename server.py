@@ -20,7 +20,7 @@ class SaveModelStrategy(fl.server.strategy.FedAvg): #FedAvg averages cell by cel
         return aggregated_weights # return, because the aggregated weights will be used by flower
 
 # Create strategy and run server
-# strategy = SaveModelStrategy() # create an object of the class
+#strategy = SaveModelStrategy() # create an object of the class
 strategy = fl.server.strategy.FedAvg(
     #fraction_fit=0.1,  # Sample 10% of available clients for the next round
     min_fit_clients=2,  # Minimum number of clients to be sampled for the next round
