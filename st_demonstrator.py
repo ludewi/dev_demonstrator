@@ -339,7 +339,7 @@ def app():
         # Start Flower client
         captured_output_fed = io.StringIO()
         with contextlib.redirect_stdout(captured_output_fed):
-            fl.client.start_numpy_client("10.166.33.132:2103", client=CifarClient())
+            fl.client.start_numpy_client("10.166.33.132:2103", client=CifarClient()) #10.166.33.132:2103 "localhost:8080",
         st_ru.fed_train_log = captured_output_fed.getvalue()
 
         ###### train local #####
