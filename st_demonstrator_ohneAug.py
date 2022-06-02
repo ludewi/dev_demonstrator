@@ -2,6 +2,8 @@
 import streamlit as st
 import flwr as fl
 import os
+from os.path import exists
+import sys
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.python.keras.models import load_model
@@ -29,8 +31,15 @@ local_weights = []
 fed_weights = []
 initial_weights = []
 
+
 def app():
-    #### input ####
+
+    # Sidebar
+    with st.sidebar:
+        st.subheader("Hier ist die Kommandzentrale")
+        train_button = st.button("Am Föderierten Training teilnehmen")
+        load_data_button = st.button("Daten einlesen.")
+        reset_button = st.button("Daten zurücksetzen")
 
     ################################################## data_input ###################################################
     st.header("Dateneingabe")
@@ -146,8 +155,41 @@ def app():
     images = st.session_state["image"]
     y_train = st.session_state["y_train"]
 
-    # Anzeige welche Zahlen gezeichnet werden müssen
+    if load_data_button:
+        # check if .npz file exists
+        if exists("image_data.npz"):
+            # load saved numpy array with image data (28x28) and target data
+            arr = np.load("image_data.npz")
+
+            # save image data in variable and convert from numpy array into python array
+            # only then appending works with different dimension arrays eg. (5,28,28).append(1,28,28)
+            np_images = arr["x"]
+            st.session_state["image"] = np_images.tolist()
+            np_y_train = arr["y"]
+            st.session_state["y_train"] = np_y_train.tolist()
+            st.dataframe(st.session_state["image"][1])
+            st.write(np.shape(st.session_state["y_train"]))
+
+            # Update already drawn numbers
+            st.session_state["counter_0"] = np.count_nonzero(np_y_train == 0)#np_y_train.count("0")
+            st.session_state["counter_1"] = np.count_nonzero(np_y_train == 1)#np_y_train.count("1")
+            st.session_state["counter_2"] = np.count_nonzero(np_y_train == 2)#np_y_train.count("2")
+            st.session_state["counter_3"] = np.count_nonzero(np_y_train == 3)#np_y_train.count("3")
+            st.session_state["counter_4"] = np.count_nonzero(np_y_train == 4)#np_y_train.count("4")
+            st.session_state["counter_5"] = np.count_nonzero(np_y_train == 5)#np_y_train.count("5")
+            st.session_state["counter_6"] = np.count_nonzero(np_y_train == 6)#np_y_train.count("6")
+            st.session_state["counter_7"] = np.count_nonzero(np_y_train == 7)#np_y_train.count("7")
+            st.session_state["counter_8"] = np.count_nonzero(np_y_train == 8)#np_y_train.count("8")
+            st.session_state["counter_9"] = np.count_nonzero(np_y_train == 9)#np_y_train.count("9")
+
+            # when drawing first number file does not exists
+        else:
+            st.write("Es wurden noch keine Daten gespeichert!")
+
+
+    # when pressing save_button save all steamlit_canvas data into variable
     if save_button:
+        # Anzeige welche Zahlen gezeichnet werden müssen
         number = np.random.randint(0, high=10, size=None, dtype=int)
         st.session_state["number"] = number
         if canvas_result.image_data is not None:
@@ -158,6 +200,9 @@ def app():
             image1 = cv2.resize(image1, (28, 28))
             images.append(image1)
             y_train.append(number)
+
+            # save numpy array persistence into .npz file
+            np.savez("image_data.npz", x=images, y=y_train)
 
             # Counter to check how many numbers were drawn
             if number == 0:
@@ -198,42 +243,38 @@ def app():
     except:
         pass
 
-    ################################################## Prepare Data ###################################################
-    # Load dataset
-    (X, y_train) = (images, y_train)
-
-    # Skalieren der Daten
-    x_train = []
-    for image in X:
-        x_train.append(image / 255.0)
-
-    # reshaping the Data
-    x_train = np.array(x_train).reshape(-1, 28, 28, 1)
-    y_train = np.array(y_train)
-
-    # shuffle  data
-    if len(y_train) > 10:  # da fehler meldung wenn noch keine daten erzeugt wurden
-        X = x_train
-        y = y_train
-
-        X, y = shuffle(X, y, random_state=0)
-
-        # test train split
-        x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
-
-    else:
-        st.write("Training kann noch nicht gestartet werden, da zu wenig Daten erzeugt wurden.")
-
     ################################################## start_training ###################################################
-
-    # Train Lokal or Fed
-    with st.sidebar:
-        st.subheader("Hier ist die Kommandzentrale")
-        train_button = st.button("Am Föderierten Training teilnehmen")
-        reset_button = st.button("Daten zurücksetzen")
-
-
     if train_button:
+
+        ################################################## Prepare Data ###################################################
+        # Load dataset
+        (X, y_train) = (images, y_train)
+        print(type(X))
+        print(type(y_train))
+
+        # Skalieren der Daten
+        x_train = []
+        print(type(x_train))
+        for image in X:
+            x_train.append(image / 255.0)
+
+        # reshaping the Data
+        x_train = np.array(x_train).reshape(-1, 28, 28, 1)
+        y_train = np.array(y_train)
+
+        # shuffle  data
+        if len(y_train) > 10:  # da fehler meldung wenn noch keine daten erzeugt wurden
+            X = x_train
+            y = y_train
+
+            X, y = shuffle(X, y, random_state=0)
+
+            # test train split
+            x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
+
+        else:
+            st.write("Training kann noch nicht gestartet werden, da zu wenig Daten erzeugt wurden.")
+
         # Make TensorFlow log less verbose
         os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
         with st.spinner('Mit Server verbinden...'):
@@ -281,6 +322,7 @@ def app():
                         st.write(f"x_train shape: {x_train.shape}")
                         st.write(f"{x_train.shape[0]} train samples")
                         st.write(f"{x_test.shape[0]} test samples")
+                        st.write(f"Die Trainingsdaten sind {sys.getsizeof(x_train)} Bytes groß.")
 
                 global check_flag
                 check_flag = st.empty()
@@ -301,6 +343,7 @@ def app():
                 if round_counter > 1:
                     with st.expander(f"Empfangene Gewichte vom Server"):
                         model.set_weights(parameters)
+                        st.write(f"Die empfangen Gewichte sind {sys.getsizeof(model.get_weights())} Bytes groß.")
                         st.write(model.get_weights())
 
                 with st.spinner(f"Wir befinden uns gerade in Runde {round_counter} des föderrierten Trainings... "):
@@ -310,6 +353,7 @@ def app():
                     st.success(f'Training der Runde {round_counter} erfolgreich beendet und aktualisiertes Modell mit angepassten Gewichten wurde erfolgreich an Server zurück geschickt!')
 
                 with st.expander(f"Berechnete Gewichte der Runde {round_counter}"):
+                    st.write(f"Die berechneten Gewichte sind {sys.getsizeof(model.get_weights())} Bytes groß.")
                     st.write(model.get_weights())
 
                 hist = r.history

@@ -1,5 +1,5 @@
 import st_info as page_info
-import st_demonstrator as page_input
+import st_demonstrator_ohneAug as page_input
 import st_result as page_result
 import streamlit as st
 import utils as utl
