@@ -167,7 +167,7 @@ def app():
             st.session_state["image"] = np_images.tolist()
             np_y_train = arr["y"]
             st.session_state["y_train"] = np_y_train.tolist()
-            st.dataframe(st.session_state["image"][1])
+            st.write(np.shape(st.session_state["image"]))
             st.write(np.shape(st.session_state["y_train"]))
 
             # Update already drawn numbers
@@ -290,8 +290,8 @@ def app():
                           loss="sparse_categorical_crossentropy",
                           metrics=["accuracy"])
             st.success('Aktuelles Modell erfolgreich vom Server geladen!')
-            (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-            #x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
+            #(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+            x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
 
 
             check_flag = st.empty()
@@ -397,10 +397,14 @@ def app():
                 st.write("Angepasste Gewichte des Modells (Training der letzten Runde auf lokalen Daten)")
                 st.write(local_weights)
 
+                np_initial_weights = np.array(initial_weights)
+                np_local_weights = np.array((local_weights))
                 #calculate whoch % of initial weights got changed
-                #weight_diff = np.subtract(initial_weights, local_weights)
-                #weight_diff_r = weight_diff[np.where(weight_diff != 0)]
-                #st.write(len(weight_diff_r)/len(weight_diff)*100)
+                weight_diff = np.subtract(np_initial_weights, np_local_weights)
+                non_0 = np.count_nonzero(weight_diff != 0)
+                data_0 = np.count_nonzero(weight_diff == 0)
+
+                st.write(non_0/(non_0+data_0)*100)
 
         with st.spinner("Zum Vergleich wird jetzt noch das Training auf den lokalen Daten  ausgeführt..."):
             for _ in range(5):

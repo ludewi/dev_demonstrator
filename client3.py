@@ -39,4 +39,4 @@ class CifarClient(fl.client.NumPyClient):
 
 
 # Start Flower client
-fl.client.start_numpy_client("10.166.33.132:2103", client=CifarClient()) #10.166.33.132:2103 localhost:8080
+fl.client.start_numpy_client("localhost:8080", client=CifarClient()) #10.166.33.132:2103 localhost:8080
