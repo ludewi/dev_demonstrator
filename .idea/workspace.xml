@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_data.npz" beforeDir="false" afterPath="$PROJECT_DIR$/image_data.npz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/st_demonstrator_ohneAug.py" beforeDir="false" afterPath="$PROJECT_DIR$/st_demonstrator_ohneAug.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/st_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/st_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

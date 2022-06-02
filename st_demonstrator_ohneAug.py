@@ -248,24 +248,21 @@ def app():
 
         ################################################## Prepare Data ###################################################
         # Load dataset
-        (X, y_train) = (images, y_train)
-        print(type(X))
-        print(type(y_train))
+        np_x_train = np.array(images)
+        np_y_train = np.array(y_train)
 
         # Skalieren der Daten
-        x_train = []
-        print(type(x_train))
-        for image in X:
-            x_train.append(image / 255.0)
+        x_train_norm = []
+        for i in range(len(np_x_train)):
+            x_train_norm.append(np_x_train[i] / 255)
 
         # reshaping the Data
-        x_train = np.array(x_train).reshape(-1, 28, 28, 1)
-        y_train = np.array(y_train)
+        x_train = np.array(x_train_norm).reshape(-1, 28, 28, 1)
 
         # shuffle  data
         if len(y_train) > 10:  # da fehler meldung wenn noch keine daten erzeugt wurden
             X = x_train
-            y = y_train
+            y = np_y_train
 
             X, y = shuffle(X, y, random_state=0)
 
