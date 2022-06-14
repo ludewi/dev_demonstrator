@@ -4,7 +4,7 @@ import streamlit as st
 
 def app():
     st.title("Informationsseite")
-
+    st.subheader("Hier findest du grundlegende Informationen zu unserem Demonstrator.")
 
 
     """ In diesem Container wird die gesamte Funktionsweise des Demonstators erklärt"""

@@ -16,15 +16,10 @@ st.set_page_config(
      }
  )
 
-
-
 ###### HEAD ########
-st.title("Federated Learning System - Dashboard")
-st.write("We designed a Federated Learning System using the Framework FLOWER")
+#st.title("Federated Learning System - Dashboard")
+#st.write("We designed a Federated Learning System using the Framework FLOWER")
 #st.markdown('<h1 style="text-align:center;color:red;font-weight:bolder;font-size:50px;">Federated Learning<br>Demonstrator</h1>',unsafe_allow_html=True)
-
-
-
 
 
 # https://medium.com/@u.praneel.nihar/building-multi-page-web-app-using-streamlit-7a40d55fa5b4 Quelle für Multi App
