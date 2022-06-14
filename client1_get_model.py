@@ -55,9 +55,8 @@ class FlowerClient(fl.client.NumPyClient):
         self.model =loaded_model
         # self.model.summary()    
       
-
-
     #########################################################################################################
+
 
         # Update local model parameters
         self.model.set_weights(parameters)
