@@ -1,5 +1,4 @@
-"""Result page V1. Results from Fed training and local Traing displayed on this page
-    and classifiction """
+"""Result page V2 only  classifiction on this page"""
 import numpy as np
 import pandas as pd
 import cv2
@@ -8,10 +7,7 @@ import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 
 
-local_hist = []
-fit_hist = []
-fed_hist = []
-fed_eval_hist = []
+
 local_train_log = ""
 fed_train_log = ""
 
@@ -19,32 +15,11 @@ fed_train_log = ""
 def app():
     st.subheader("Ergebnisseite")
 
-    if len(local_hist) != 0:
-        dfeval_temp = pd.DataFrame(data=local_hist, columns=["Local Accuracy per Round (eval)"])
-        dffit_temp = pd.DataFrame(data=fit_hist, columns=["Local Accuracy per Round (fit)"])
-        #st.dataframe(df1_temp)
-
-    if len(fed_hist) != 0:
-        
-        df_fed_fit_temp = pd.DataFrame(data=fed_hist,columns=["Federated Accuracy per Round (fit)"]) #columns=["Ep1", "Ep2", "Ep3", "Ep4", "Ep5", "Ep6", "Ep7", "Ep8", "Ep9", "Ep10"]
-        df_fed_val_temp = pd.DataFrame(data=fed_eval_hist,columns=["Federated Accuracy per Round (eval)"])
-        
-    #st.dataframe(df2_temp)
-        #st.line_chart(fed_hist)
-        
-        result = pd.concat([dfeval_temp, dffit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
-        st.dataframe(result)
-        st.line_chart(result)
-    
-    else:
-        st.write("Es wurde noch kein Training durchgeführt!")
-
     st.subheader("Klassifizierung")
     st.write("Nun prüfen wir ob unser föderriertes Modell auch eine gute Vorhersage treffen kann.")
 
-
     #load_model for classification
-    model = load_model('fit_global_model')
+    model = load_model('../fit_global_model')
 
     col3, col4 = st.columns(2)
 

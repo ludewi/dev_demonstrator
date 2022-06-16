@@ -33,7 +33,7 @@ def app():
         st.image("pictures/FL_2.png")
     with col2:
         #st.image("pictures/Aufbau_FL.png")
-        video_file = open('pictures/fl_google.mp4', 'rb')
+        video_file = open('../pictures/fl_google.mp4', 'rb')
         video_bytes = video_file.read()
 
         st.video(video_bytes, start_time=22)
