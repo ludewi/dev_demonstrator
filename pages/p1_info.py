@@ -10,7 +10,7 @@ st.set_page_config(
 
 st.title("Informationsseite")
 st.sidebar.markdown("Informationsseite")
-st.subheader("Hier findest du grundlegende Informationen zu unserem Demonstrator.")
+st.markdown("**Hier findest du grundlegende Informationen zu unserem Demonstrator.**")
 
 example = st.container()
 example.subheader('Was ist der MNIST Datensatz?')

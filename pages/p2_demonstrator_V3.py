@@ -24,21 +24,22 @@ import json
 import contextlib
 import io
 
-#import p3_result_V1 as st_ru
+
 
 # streamlit config
 st.set_page_config(layout='wide') #centered
 
 # global variables
 round_counter = 0
-local_weights = []
-fed_weights = []
 initial_weights = []
+perround_weights = []
+fed_weights = []
 
-local_hist = []
-fit_hist = []
-fed_hist = []
-fed_eval_hist = []
+
+local_val_score = []
+local_train_acc = []
+fed_train_acc = []
+fed_val_score = []
 local_train_log = []
 fed_train_log = []
 
@@ -108,6 +109,11 @@ if "image" not in st.session_state:
 if "y_train" not in st.session_state:
     st.session_state["y_train"] = []
 
+# session state for result over all FL rounds
+if "result" not in st.session_state:
+    st.session_state["result"] = []
+
+
 all_numbers = [st.session_state["counter_0"], st.session_state["counter_1"], st.session_state["counter_2"],
                st.session_state["counter_3"], st.session_state["counter_4"], st.session_state["counter_5"],
                st.session_state["counter_6"], st.session_state["counter_7"], st.session_state["counter_8"],
@@ -175,6 +181,7 @@ if load_data_button:
         st.session_state["image"] = np_images.tolist()
         np_y_train = arr["y"]
         st.session_state["y_train"] = np_y_train.tolist()
+        st.write("Daten wurden erfolgreich geladen.")
         st.write(np.shape(st.session_state["image"]))
         st.write(np.shape(st.session_state["y_train"]))
 
@@ -253,7 +260,11 @@ except:
 
 ################################################## start_training ###################################################
 if train_button:
-
+    # reset score lists
+    local_val_score = []
+    local_train_acc = []
+    fed_train_acc = []
+    fed_val_score = []
     ################################################## Prepare Data ###################################################
     # Load dataset
     np_x_train = np.array(images)
@@ -359,14 +370,16 @@ if train_button:
             with st.spinner(f"Wir befinden uns gerade in Runde {round_counter} des föderrierten Trainings... "):
                 self.model.set_weights(parameters)
                 r = self.model.fit(x_train, y_train, epochs=2, batch_size=32)
+                fed_score = self.model.evaluate(x_test, y_test, verbose=0)
                 self.model.save("fit_global_model")
                 st.success(f'Training der Runde {round_counter} erfolgreich beendet und aktualisiertes Modell mit angepassten Gewichten wurde erfolgreich an Server zurück geschickt!')
 
             hist = r.history
             train_acc = hist["accuracy"][-1]
-            fed_hist.append(hist["accuracy"][-1])
-            global local_weights
-            local_weights = self.model.get_weights()
+            fed_train_acc.append(hist["accuracy"][-1])
+            fed_val_score.append(fed_score[1])
+            global perround_weights
+            perround_weights = self.model.get_weights()
 
             st.write(f"Es wurde in dieser Runde eine Genauigkeit von {train_acc} auf den Trainingsdaten erreicht.")
 
@@ -412,32 +425,45 @@ if train_button:
             st.write(initial_weights)
         with col6:
             st.write("Angepasste Gewichte des Modells (Training der letzten Runde auf lokalen Daten)")
-            st.write(local_weights)
+            st.write(perround_weights)
 
     with st.spinner("Zum Vergleich wird jetzt noch das Training auf den lokalen Daten  ausgeführt..."):
         for _ in range(5):
             captured_output_local = io.StringIO()
             with contextlib.redirect_stdout(captured_output_local):
-                model_local.fit(x_train, y_train, epochs=2, batch_size=32)
+                local_trained_model = model_local.fit(x_train, y_train, epochs=2, batch_size=32)
             local_train_log = captured_output_local.getvalue()
 
-            score = model_local.evaluate(x_test, y_test, verbose=0)
-            local_hist.append(score[1])
+            local_score = model_local.evaluate(x_test, y_test, verbose=0)
+            local_val_score.append(local_score[1])
+
+            fit_hist = local_trained_model.history
+            local_train_acc.append(fit_hist["accuracy"][-1])
+
+
         st.success("Lokales Training abgeschlossen")
 
     with st.expander("Hier kannst du die Ergebnisse der letzten Runde zusammengefasst anschauen."):
         # results from local training
-        dfeval_temp = pd.DataFrame(data=local_hist, columns=["Local Accuracy per Round (eval)"])
-        dffit_temp = pd.DataFrame(data=fit_hist, columns=["Local Accuracy per Round (fit)"])
+        df_val_temp = pd.DataFrame(data=local_val_score, columns=["Local Accuracy per Round (eval)"])
+        df_fit_temp = pd.DataFrame(data=local_train_acc, columns=["Local Accuracy per Round (fit)"])
 
         # results from federated training
-        df_fed_fit_temp = pd.DataFrame(data=fed_hist, columns=["Federated Accuracy per Round (fit)"])
-        df_fed_val_temp = pd.DataFrame(data=fed_eval_hist, columns=["Federated Accuracy per Round (eval)"])
+        df_fed_fit_temp = pd.DataFrame(data=fed_train_acc, columns=["Federated Accuracy per Round (fit)"])
+        df_fed_val_temp = pd.DataFrame(data=fed_val_score, columns=["Federated Accuracy per Round (eval)"])
 
         # show result in one DataFrame
-        result = pd.concat([dfeval_temp, dffit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
+        result = pd.concat([df_val_temp, df_fit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
+        st.session_state["result"].append(result)
+        if st.session_state["result"] == []:
+            st.session_state["result"] = result
+        else:
+            pd.concat(st.session_state["result"], result, ignore_index=True)
+
         st.dataframe(result)
         st.line_chart(result)
+
+
 
 
 

@@ -3,6 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demonstrator_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/demonstrator_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_data.npz" beforeDir="false" afterPath="$PROJECT_DIR$/image_data.npz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Credits_Lukas_Matthias.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/pictures/Credits_Lukas_Matthias.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie10.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie11.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie2.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie3.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie4.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie5.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie6.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie7.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie8.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Folie9.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/demonstrator_allinone.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/demonstrator_allinone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/p2_demonstrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/p2_demonstrator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/p1_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p1_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator_V2.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p2_demonstrator_V2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/p3_result_V1.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p3_result_V1.py" afterDir="false" />
     </list>
@@ -44,10 +64,40 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pictures" />
       <recent name="$PROJECT_DIR$/old" />
       <recent name="$PROJECT_DIR$/pages" />
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="p2_demonstrator_V3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="dev_demonstrator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pages" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.p2_demonstrator_V3" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,11 +116,14 @@
       <workItem from="1654505057645" duration="353000" />
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
-      <workItem from="1654863518659" duration="19569000" />
+      <workItem from="1654863518659" duration="27107000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dev_demonstrator$p2_demonstrator_V3.coverage" NAME="p2_demonstrator_V3 Coverage Results" MODIFIED="1655398423714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pages" />
   </component>
 </project>

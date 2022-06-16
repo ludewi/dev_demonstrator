@@ -25,7 +25,7 @@ st.set_page_config(layout='wide') #centered
 
 # global variables
 round_counter = 0
-local_weights = []
+perround_weights = []
 fed_weights = []
 initial_weights = []
 
@@ -319,8 +319,8 @@ if train_button:
 
             hist = r.history
             fed_hist.append(hist["accuracy"][-1])
-            global local_weights
-            local_weights = model.get_weights()
+            global perround_weights
+            perround_weights = model.get_weights()
             st.info("Warte auf aktualisierte Gewichte von Server ...")
             return model.get_weights(), len(x_train), {}
 
@@ -359,10 +359,10 @@ if train_button:
             st.write(initial_weights)
         with col6:
             st.write("Angepasste Gewichte des Modells (Training der letzten Runde auf lokalen Daten)")
-            st.write(local_weights)
+            st.write(perround_weights)
 
             #calculate whoch % of initial weights got changed
-            #weight_diff = np.subtract(initial_weights, local_weights)
+            #weight_diff = np.subtract(initial_weights, perround_weights)
             #weight_diff_r = weight_diff[np.where(weight_diff != 0)]
             #st.write(len(weight_diff_r)/len(weight_diff)*100)
 
