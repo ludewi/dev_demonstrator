@@ -39,7 +39,8 @@ local_hist = []
 fit_hist = []
 fed_hist = []
 fed_eval_hist = []
-
+local_train_log = []
+fed_train_log = []
 
 # Sidebar
 with st.sidebar:
@@ -424,24 +425,20 @@ if train_button:
             local_hist.append(score[1])
         st.success("Lokales Training abgeschlossen")
 
-    if len(local_hist) != 0:
+    with st.expander("Hier kannst du die Ergebnisse der letzten Runde zusammengefasst anschauen."):
+        # results from local training
         dfeval_temp = pd.DataFrame(data=local_hist, columns=["Local Accuracy per Round (eval)"])
         dffit_temp = pd.DataFrame(data=fit_hist, columns=["Local Accuracy per Round (fit)"])
-        # st.dataframe(df1_temp)
 
-    if len(fed_hist) != 0:
-
-        df_fed_fit_temp = pd.DataFrame(data=fed_hist, columns=["Federated Accuracy per Round (fit)"])  # columns=["Ep1", "Ep2", "Ep3", "Ep4", "Ep5", "Ep6", "Ep7", "Ep8", "Ep9", "Ep10"]
+        # results from federated training
+        df_fed_fit_temp = pd.DataFrame(data=fed_hist, columns=["Federated Accuracy per Round (fit)"])
         df_fed_val_temp = pd.DataFrame(data=fed_eval_hist, columns=["Federated Accuracy per Round (eval)"])
 
-        # st.dataframe(df2_temp)
-        # st.line_chart(fed_hist)
-
+        # show result in one DataFrame
         result = pd.concat([dfeval_temp, dffit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
         st.dataframe(result)
         st.line_chart(result)
 
-    else:
-        st.write("Es wurde noch kein Training durchgeführt!")
+
 
 

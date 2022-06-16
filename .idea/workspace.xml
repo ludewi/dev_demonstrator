@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demonstrator_allinone.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/demonstrator_allinone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demonstrator_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/demonstrator_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/p1_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p1_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator.py" beforeDir="false" afterPath="$PROJECT_DIR$/old/p2_demonstrator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator_V2.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p2_demonstrator_V2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/p3_result_V1.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p3_result_V1.py" afterDir="false" />
     </list>
@@ -71,7 +66,7 @@
       <workItem from="1654505057645" duration="353000" />
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
-      <workItem from="1654863518659" duration="18257000" />
+      <workItem from="1654863518659" duration="19569000" />
     </task>
     <servers />
   </component>
