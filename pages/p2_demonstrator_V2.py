@@ -32,6 +32,8 @@ local_weights = []
 fed_weights = []
 initial_weights = []
 
+st.markdown("# Eingabe-Seite")
+st.sidebar.markdown("# Eingabe-Seite")
 
 def app():
 

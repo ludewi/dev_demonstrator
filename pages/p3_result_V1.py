@@ -15,6 +15,8 @@ fed_eval_hist = []
 local_train_log = ""
 fed_train_log = ""
 
+st.markdown("# Ergebniss-Seite")
+st.sidebar.markdown("# Ergebniss-Seite")
 
 def app():
     st.subheader("Ergebnisseite")

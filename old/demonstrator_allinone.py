@@ -404,7 +404,7 @@ if show_result:
     st.write("Nun prüfen wir ob unser föderriertes Modell auch eine gute Vorhersage treffen kann.")
 
     # load_model for classification
-    model = load_model('fit_global_model')
+    model = load_model('../fit_global_model')
 
     col3, col4 = st.columns(2)
 
