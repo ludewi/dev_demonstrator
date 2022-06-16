@@ -1,3 +1,4 @@
+"""Version 2: Modell wird auf cleint defienrt"""
 # import benötiger Pakete
 import streamlit as st
 import flwr as fl
@@ -294,7 +295,7 @@ def app():
             x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
 
 
-            check_flag = st.empty()
+        check_flag = st.empty()
 
         # Define Flower client
         class CifarClient(fl.client.NumPyClient):
@@ -339,30 +340,30 @@ def app():
 
                 if round_counter > 1:
                     with st.expander(f"Empfangene Gewichte vom Server"):
-                        model.set_weights(parameters)
-                        st.write(f"Die empfangen Gewichte sind {sys.getsizeof(model.get_weights())} Bytes groß.")
-                        st.write(model.get_weights())
+                        self.model.set_weights(parameters)
+                        st.write(f"Die empfangen Gewichte sind {sys.getsizeof(self.model.get_weights())} Bytes groß.")
+                        st.write(self.model.get_weights())
 
                 with st.spinner(f"Wir befinden uns gerade in Runde {round_counter} des föderrierten Trainings... "):
-                    model.set_weights(parameters)
-                    r = model.fit(x_train, y_train, epochs=2, batch_size=32)
-                    model.save("fit_global_model")
+                    self.model.set_weights(parameters)
+                    r = self.model.fit(x_train, y_train, epochs=2, batch_size=32)
+                    self.model.save("fit_global_model")
                     st.success(f'Training der Runde {round_counter} erfolgreich beendet und aktualisiertes Modell mit angepassten Gewichten wurde erfolgreich an Server zurück geschickt!')
 
                 with st.expander(f"Berechnete Gewichte der Runde {round_counter}"):
-                    st.write(f"Die berechneten Gewichte sind {sys.getsizeof(model.get_weights())} Bytes groß.")
-                    st.write(model.get_weights())
+                    st.write(f"Die berechneten Gewichte sind {sys.getsizeof(self.model.get_weights())} Bytes groß.")
+                    st.write(self.model.get_weights())
 
                 hist = r.history
                 st_ru.fed_hist.append(hist["accuracy"][-1])
                 global local_weights
-                local_weights = model.get_weights()
+                local_weights = self.model.get_weights()
                 st.info("Warte auf aktualisierte Gewichte von Server ...")
-                return model.get_weights(), len(x_train), {}
+                return self.model.get_weights(), len(x_train), {}
 
             def evaluate(self, parameters, config):
-                model.set_weights(parameters)
-                loss, accuracy = model.evaluate(x_test, y_test)
+                self.model.set_weights(parameters)
+                loss, accuracy = self.model.evaluate(x_test, y_test)
                 return loss, len(x_test), {"accuracy": accuracy}
 
 

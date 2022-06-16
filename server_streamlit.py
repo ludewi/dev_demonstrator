@@ -25,6 +25,8 @@ class SaveModelStrategy(fl.server.strategy.FedAvg): #FedAvg averages cell by cel
             st.write("Hallo")
             time.sleep(5)
             aggregated_weights = super().aggregate_fit(rnd, results, failures)
+            #print(aggregated_weights)
+            print(np.array(aggregated_weights))
             #st.write(aggregated_weights)
             if aggregated_weights is not None:
                 # Save aggregated_weights
@@ -46,7 +48,7 @@ try:
         # Start Flower server for three rounds of federated learning
         with st.spinner("Server läuft..."):
             fl.server.start_server( # takes 4 arguments
-                server_address = '34.127.33.101:8090' , #1 the place where to server entry and endpoint will open + Portnumber
+                server_address = 'localhost:8080' , #1 the place where to server entry and endpoint will open + Portnumber
                 config={"num_rounds": 5} , # how many times we will call the clients for training, how many times we will aggregated weights from them
                 grpc_max_message_length = 1024*1024*1024, # grpc sends commands, maximum message length, will carry the weights of the model, has to be long enough, if the model is small we can reduce it to save bandwith
                 strategy = strategy #the strategy will be an object of the call that we have defined above
