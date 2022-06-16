@@ -1,3 +1,4 @@
+"""Result page V2 only  classifiction on this page"""
 import numpy as np
 import pandas as pd
 import cv2

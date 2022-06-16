@@ -1,6 +1,6 @@
 import st_info as page_info
 import st_demonstrator_V2 as page_input
-import st_result as page_result
+import st_result_V1 as page_result
 import streamlit as st
 import utils as utl
 

@@ -23,7 +23,7 @@ import json
 import contextlib
 import io
 
-import st_result as st_ru
+import st_result_V1 as st_ru
 
 # streamlit config
 #st.set_page_config(layout='wide') #centered
