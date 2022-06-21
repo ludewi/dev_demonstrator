@@ -111,7 +111,7 @@ if "y_train" not in st.session_state:
 
 # session state for result over all FL rounds
 if "result" not in st.session_state:
-    st.session_state["result"] = []
+    st.session_state["result"] = pd.DataFrame()
 
 
 all_numbers = [st.session_state["counter_0"], st.session_state["counter_1"], st.session_state["counter_2"],
@@ -455,7 +455,6 @@ if train_button:
             fit_hist = local_trained_model.history
             local_train_acc.append(fit_hist["accuracy"][-1])
 
-
         st.success("Lokales Training abgeschlossen")
 
     with st.expander("Hier kannst du die Ergebnisse der letzten Runde zusammengefasst anschauen."):
@@ -469,17 +468,10 @@ if train_button:
 
         # show result in one DataFrame
         result = pd.concat([df_val_temp, df_fit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
-        #st.session_state["result"].append(result)
-        if st.session_state["result"] == []:
-            st.session_state["result"] = result
-        else:
-            pd.concat([st.session_state["result"], result], ignore_index=True)
 
+        # Appending result from current round to dataframe where all results are stored
+        st.session_state["result"] = pd.concat([st.session_state["result"], result], ignore_index=True, axis=0)
+
+        # show results from current FL Durchgang
         st.dataframe(result)
         st.line_chart(result)
-
-
-
-
-
-

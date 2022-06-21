@@ -7,9 +7,7 @@
       <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_sendModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_sendModel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +99,7 @@
       <workItem from="1654505057645" duration="353000" />
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
-      <workItem from="1654863518659" duration="34092000" />
+      <workItem from="1654863518659" duration="38830000" />
     </task>
     <servers />
   </component>
