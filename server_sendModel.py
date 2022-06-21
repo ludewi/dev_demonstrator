@@ -24,9 +24,10 @@ def main() -> None:
                   metrics=["accuracy"])
 
     # Save Server Model to JSON
+    global model_json
     model_json = model.to_json()
-    with open("model.json", "w") as json_file:
-        json_file.write(model_json)
+    #with open("model.json", "w") as json_file:
+    #    json_file.write(model_json)
 
     # Loading trained Model if exists
     #if exists('model_trained') == True:
@@ -82,8 +83,9 @@ def fit_config(rnd: int):
     Keep batch size fixed at 32, perform two rounds of training with one
     local epoch, increase to two local epochs afterwards.
     """
-    json_file = open('model.json', 'r')
-    loaded_model_json = json_file.read()
+    #json_file = open('model.json', 'r')
+    #loaded_model_json = json_file.read()
+    loaded_model_json = model_json
     print('Model Architecture Send To Client(s)')
 
     config = {

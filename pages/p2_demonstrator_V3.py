@@ -30,7 +30,7 @@ import io
 st.set_page_config(layout='wide') #centered
 
 # global variables
-round_counter = 0
+round_counter = 1
 initial_weights = []
 perround_weights = []
 fed_weights = []
@@ -299,14 +299,29 @@ if train_button:
     round_counter = 1
 
     # For display status
+    #check_flag = st.empty()
+    with st.spinner('Mit Server verbinden...'):
+        time.sleep(2)
+        st.success('Erfolgreich mit Server Verbunden!')
+
+    with st.expander("Klicke hier für detailierte Information zu den Trainingsdaten."):
+        st.markdown("### Aufteilung von Training- und Testdaten")
+        st.write(f"x_train shape: {x_train.shape}")
+        st.write(f"{x_train.shape[0]} train samples")
+        st.write(f"{x_test.shape[0]} test samples")
+        st.write(f"Die Trainingsdaten sind {sys.getsizeof(x_train)} Bytes groß.")
+
+    global check_flag
     check_flag = st.empty()
+    check_flag.write(
+        "Server prüft ob benötige Anzahl von Clients mit dem Server verbunden sind, um das Training starten zu können...")
 
     # Define Flower client
     class CifarClient(fl.client.NumPyClient):
 
         def get_parameters(self):
 
-            with st.spinner('Mit Server verbinden...'):
+            """with st.spinner('Mit Server verbinden...'):
                 time.sleep(2)
                 st.success('Erfolgreich mit Server Verbunden!')
 
@@ -319,13 +334,13 @@ if train_button:
 
             global check_flag
             check_flag = st.empty()
-            check_flag.write("Server prüft ob benötige Anzahl von Clients mit dem Server verbunden sind, um das Training starten zu können...")
+            check_flag.write("Server prüft ob benötige Anzahl von Clients mit dem Server verbunden sind, um das Training starten zu können...")"""
 
 
         def fit(self, parameters, config):
             global round_counter
             check_flag.empty()
-            if round_counter == 0:
+            if round_counter == 1:
                 st.success('Die benötige Anzahl an Clients haben sich mit dem Server verbunden!')
                 with st.spinner('Training wird gestartet...'):
                     time.sleep(1)
@@ -354,14 +369,14 @@ if train_button:
                     st.success('Aktuelles Modell erfolgreich vom Server geladen!')
 
             #########################################################################################################
-            if round_counter == 0:
+            if round_counter == 1:
                 with st.spinner("Initale Parameter werden vom geladen..."): # vom Server?
                     time.sleep(2)
                     global initial_weights
                     initial_weights = self.model.get_weights()
                     st.success('Initale Parameter erfolgreich geladen!') # vom Server?
 
-            if round_counter > 1:
+            if round_counter > 2:
                 with st.expander(f"Empfangene Gewichte vom Server"):
                     self.model.set_weights(parameters)
                     st.write(f"Die empfangen Gewichte sind {sys.getsizeof(self.model.get_weights())} Bytes groß.")
