@@ -452,7 +452,7 @@ if train_button:
         if st.session_state["result"] == []:
             st.session_state["result"] = result
         else:
-            pd.concat(st.session_state["result"], result, ignore_index=True)
+            pd.concat([st.session_state["result"], result], ignore_index=True)
 
         st.dataframe(result)
         st.line_chart(result)

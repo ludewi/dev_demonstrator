@@ -454,11 +454,11 @@ if train_button:
 
         # show result in one DataFrame
         result = pd.concat([df_val_temp, df_fit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
-        st.session_state["result"].append(result)
+        #st.session_state["result"].append(result)
         if st.session_state["result"] == []:
             st.session_state["result"] = result
         else:
-            pd.concat(st.session_state["result"], result, ignore_index=True)
+            pd.concat([st.session_state["result"], result], ignore_index=True)
 
         st.dataframe(result)
         st.line_chart(result)
