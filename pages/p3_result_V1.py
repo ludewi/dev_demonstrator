@@ -7,7 +7,7 @@ from tensorflow.python.keras.models import load_model
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 
-from pages.p2_demonstrator_V2 import local_val_score, local_train_acc, fed_train_acc, fed_val_score, local_train_log, fed_train_log
+from pages.p2_demonstrator_V3 import local_val_score, local_train_acc, fed_train_acc, fed_val_score, local_train_log, fed_train_log
 
 st.set_page_config(
      page_title="Results",

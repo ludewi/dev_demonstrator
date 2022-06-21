@@ -2,11 +2,8 @@ from genericpath import exists
 from typing import Any, Callable, Dict, List, Optional, Tuple, final
 
 import flwr as fl
-import tensorflow as tf
-
 from tensorflow import keras
-from pathlib import Path
-import os.path
+
 
 def main() -> None:
     # Load and compile model for
@@ -14,7 +11,7 @@ def main() -> None:
     # 2. server-side parameter evaluation
     # Load and compile Keras model
 
-    from tensorflow import keras
+
 
     model = keras.Sequential([
         keras.layers.Flatten(input_shape=(28,28)),
@@ -58,10 +55,7 @@ def main() -> None:
             strategy=strategy,
             # Forces a distributed evaluation to occur after the last training epoch when enabled.
             force_final_distributed_eval = True, ########### NEU ############### app.py
-            certificates=(
-                Path(r"C:/Users/Matthias/Desktop/HS Karlsruhe/4. Semester/Masterthesis/Git/fed-learning-code/Certificate/server1.crt").read_bytes(),
-                Path(r"C:/Users/Matthias/Desktop/HS Karlsruhe/4. Semester/Masterthesis/Git/fed-learning-code/Certificate/server1.pem").read_bytes(),
-                Path(r"C:/Users/Matthias/Desktop/HS Karlsruhe/4. Semester/Masterthesis/Git/fed-learning-code/Certificate/server1.key").read_bytes())
+
     )
 
 
@@ -114,15 +108,10 @@ def evaluate_config(rnd: int):
     val_steps = 5 if rnd < 4 else 10
     return {"val_steps": val_steps}
 
-if __name__ == "__main__":
-    main()
 
-
-'''
 if __name__ == "__main__":
     try:
         while True:
             main()
     except KeyboardInterrupt:
         pass
-'''

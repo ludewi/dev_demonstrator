@@ -296,7 +296,7 @@ if train_button:
 
     # reset round counter
     #global round_counter
-    round_counter = 0
+    round_counter = 1
 
     # For display status
     check_flag = st.empty()
