@@ -6,7 +6,7 @@ import cv2
 from tensorflow.python.keras.models import load_model
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
-
+import plotly.express as px
 from pages.p2_demonstrator_V3 import local_train_log, fed_train_log
 
 st.set_page_config(
@@ -18,10 +18,44 @@ st.set_page_config(
 
 st.title("Ergebnisseite")
 st.sidebar.markdown("# Ergebnisseite")
+result = st.session_state["result"]
+print(type(result))
 
-if st.session_state["result"] is not st.session_state["result"].empty:
-    st.dataframe(st.session_state["result"])
-    st.line_chart(st.session_state["result"])
+if result is not result.empty:
+    result.index += 1
+    col7, col8 = st.columns(2)
+    with col7:
+        st.write("Vergleich der Genauigkeit auf den Trainingsdaten pro FL-Runde.")
+
+        # show results from current FL Durchgang
+        st.dataframe(result[["Lokal (fit)", "Föderiert (fit)"]])
+
+        # plot result
+        fig_fit = px.line(result[["Lokal (fit)", "Föderiert (fit)"]])
+        fig_fit.update_layout(
+            title="Genauigkeit Modelle per Runde",
+            xaxis_title="FL-Runden",
+            yaxis_title="Genauigkeit",
+            legend_title="Modelle")
+
+        fig_fit.update_yaxes(range=(0.0, 1.0))
+        st.plotly_chart(fig_fit)
+
+    with col8:
+        st.write("Vergleich der Genauigkeit auf den Validierungsdaten pro FL-Runde.")
+
+        # show results from current FL Durchgang
+        st.dataframe(result[["Lokal (val)", "Föderiert (val)"]])
+
+        # plot result
+        fig_val = px.line(result[["Lokal (val)", "Föderiert (val)"]])
+        fig_val.update_layout(
+            title="Genauigkeit Modelle per Runde",
+            xaxis_title="FL-Runden",
+            yaxis_title="Genauigkeit",
+            legend_title="Modelle")
+        fig_val.update_yaxes(range=(0.0, 1.0))
+        st.plotly_chart(fig_val)
 
 else:
     st.write("Es wurde noch kein Training durchgeführt!")
@@ -66,3 +100,4 @@ with st.expander("Hier findest du die Log Daten des lokalen Trainings"):
 
 with st.expander("Hier findest du die Log Daten des Föderierten Trainings"):
         st.write(fed_train_log)
+

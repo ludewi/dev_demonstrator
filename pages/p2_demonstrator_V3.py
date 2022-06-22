@@ -19,6 +19,7 @@ from sklearn.model_selection import train_test_split
 from streamlit_drawable_canvas import st_canvas
 import cv2
 import json
+import plotly.express as px
 
 # for caputring stdout
 import contextlib
@@ -459,19 +460,50 @@ if train_button:
 
     with st.expander("Hier kannst du die Ergebnisse der letzten Runde zusammengefasst anschauen."):
         # results from local training
-        df_val_temp = pd.DataFrame(data=local_val_score, columns=["Local Accuracy per Round (eval)"])
-        df_fit_temp = pd.DataFrame(data=local_train_acc, columns=["Local Accuracy per Round (fit)"])
+        df_val_temp = pd.DataFrame(data=local_val_score, columns=["Lokal (val)"])
+        df_fit_temp = pd.DataFrame(data=local_train_acc, columns=["Lokal (fit)"])
 
         # results from federated training
-        df_fed_fit_temp = pd.DataFrame(data=fed_train_acc, columns=["Federated Accuracy per Round (fit)"])
-        df_fed_val_temp = pd.DataFrame(data=fed_val_score, columns=["Federated Accuracy per Round (eval)"])
+        df_fed_fit_temp = pd.DataFrame(data=fed_train_acc, columns=["Föderiert (fit)"])
+        df_fed_val_temp = pd.DataFrame(data=fed_val_score, columns=["Föderiert (val)"])
 
         # show result in one DataFrame
-        result = pd.concat([df_val_temp, df_fit_temp, df_fed_fit_temp, df_fed_val_temp], axis=1)
-
+        result = pd.concat([df_val_temp, df_fed_val_temp, df_fit_temp, df_fed_fit_temp], axis=1)
+        result.index += 1
         # Appending result from current round to dataframe where all results are stored
         st.session_state["result"] = pd.concat([st.session_state["result"], result], ignore_index=True, axis=0)
 
-        # show results from current FL Durchgang
-        st.dataframe(result)
-        st.line_chart(result)
+        col7, col8 = st.columns(2)
+        with col7:
+            st.write("Vergleich der Genauigkeit auf den Trainingsdaten pro FL-Runde.")
+
+            # show results from current FL Durchgang
+            st.dataframe(result[["Lokal (fit)", "Föderiert (fit)"]], width=2000)
+
+            # plot result
+            fig_fit = px.line(result[["Lokal (fit)", "Föderiert (fit)"]])
+            fig_fit.update_layout(
+                title="Genauigkeit Modelle per Runde",
+                xaxis_title="FL-Runden",
+                yaxis_title="Genauigkeit",
+                legend_title="Modelle")
+            fig_fit.update_yaxes(range=(0.0, 1.0))
+            st.plotly_chart(fig_fit)
+
+        with col8:
+            st.write("Vergleich der Genauigkeit auf den Validierungsdaten pro FL-Runde.")
+
+            # show results from current FL Durchgang
+            st.dataframe(result[["Lokal (val)", "Föderiert (val)"]], width=2000)
+
+            # plot result
+            fig_val = px.line(result[["Lokal (val)", "Föderiert (val)"]])
+            fig_val.update_layout(
+                title="Genauigkeit Modelle per Runde",
+                xaxis_title="FL-Runden",
+                yaxis_title="Genauigkeit",
+                legend_title="Modelle")
+            fig_val.update_yaxes(range=(0.0, 1.0))
+            st.plotly_chart(fig_val)
+
+
