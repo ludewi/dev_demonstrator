@@ -7,7 +7,7 @@ from tensorflow.python.keras.models import load_model
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 import plotly.express as px
-from pages.p2_demonstrator_V3 import local_train_log, fed_train_log
+from pages.Dateneingabe_und_Training_starten import local_train_log, fed_train_log
 
 st.set_page_config(
      page_title="Results",
@@ -19,10 +19,11 @@ st.set_page_config(
 st.title("Ergebnisseite")
 st.sidebar.markdown("# Ergebnisseite")
 result = st.session_state["result"]
-print(type(result))
 
-if result is not result.empty:
-    result.index += 1
+if result is result.empty:
+    st.write("Es wurde noch kein Training durchgeführt!")
+
+else:
     col7, col8 = st.columns(2)
     with col7:
         st.write("Vergleich der Genauigkeit auf den Trainingsdaten pro FL-Runde.")
@@ -56,9 +57,6 @@ if result is not result.empty:
             legend_title="Modelle")
         fig_val.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_val)
-
-else:
-    st.write("Es wurde noch kein Training durchgeführt!")
 
 st.subheader("Klassifizierung")
 st.write("Nun prüfen wir ob unser föderriertes Modell auch eine gute Vorhersage treffen kann.")
