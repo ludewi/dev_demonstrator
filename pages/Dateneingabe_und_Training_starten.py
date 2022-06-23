@@ -37,10 +37,10 @@ perround_weights = []
 fed_weights = []
 
 
-local_val_score = []
+"""local_val_score = []
 local_train_acc = []
 fed_train_acc = []
-fed_val_score = []
+fed_val_score = []"""
 local_train_log = []
 fed_train_log = []
 
@@ -382,6 +382,8 @@ if train_button:
                     self.model.set_weights(parameters)
                     st.write(f"Die empfangen Gewichte sind {sys.getsizeof(self.model.get_weights())} Bytes groß.")
                     st.write(self.model.get_weights())
+                    fig = px.imshow(self.model.get_weights()[2])
+                    st.plotly_chart(fig)
 
             with st.spinner(f"Wir befinden uns gerade in Runde {round_counter} des föderrierten Trainings... "):
                 self.model.set_weights(parameters)

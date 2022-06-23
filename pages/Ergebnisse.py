@@ -10,7 +10,7 @@ import plotly.express as px
 from pages.Dateneingabe_und_Training_starten import local_train_log, fed_train_log
 
 st.set_page_config(
-     page_title="Results",
+     page_title="Ergebnisse",
      page_icon="🚀",
      layout="wide",
      initial_sidebar_state="expanded"

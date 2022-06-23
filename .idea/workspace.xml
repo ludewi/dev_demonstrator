@@ -7,10 +7,8 @@
       <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_data.npz" beforeDir="false" afterPath="$PROJECT_DIR$/image_data.npz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/p1_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/1_Informationen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/p2_demonstrator_V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/p3_result_V1.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Ergebnisse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Ergebnisse.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Ergebnisse.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,7 @@
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
       <workItem from="1654863518659" duration="50288000" />
-      <workItem from="1655904311417" duration="2442000" />
+      <workItem from="1655904311417" duration="6858000" />
     </task>
     <servers />
   </component>
