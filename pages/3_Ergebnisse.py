@@ -7,7 +7,6 @@ from tensorflow.python.keras.models import load_model
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 import plotly.express as px
-from pages.Dateneingabe_und_Training_starten import local_train_log, fed_train_log
 
 st.set_page_config(
      page_title="Ergebnisse",
@@ -19,6 +18,7 @@ st.set_page_config(
 st.title("Ergebnisseite")
 st.sidebar.markdown("# Ergebnisseite")
 result = st.session_state["result"]
+
 
 if result is result.empty:
     st.write("Es wurde noch kein Training durchgeführt!")
@@ -93,9 +93,11 @@ with col4:
         st.write(f'result: {np.argmax(val[0])}')
         st.bar_chart(val[0])
 
+
+st.subheader("Log-Files")
 with st.expander("Hier findest du die Log Daten des lokalen Trainings"):
-        st.write(local_train_log)
+        st.write(st.session_state["local_log"])
 
 with st.expander("Hier findest du die Log Daten des Föderierten Trainings"):
-        st.write(fed_train_log)
+        st.write(st.session_state["fed_log"])
 

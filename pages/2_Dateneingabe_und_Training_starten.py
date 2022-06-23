@@ -37,13 +37,6 @@ perround_weights = []
 fed_weights = []
 
 
-"""local_val_score = []
-local_train_acc = []
-fed_train_acc = []
-fed_val_score = []"""
-local_train_log = []
-fed_train_log = []
-
 # Sidebar
 with st.sidebar:
     st.subheader("Hier ist die Kommandzentrale")
@@ -113,6 +106,12 @@ if "y_train" not in st.session_state:
 # session state for result over all FL rounds
 if "result" not in st.session_state:
     st.session_state["result"] = pd.DataFrame()
+
+if "local_log" not in st.session_state:
+    st.session_state["local_log"] = ""
+
+if "fed_log" not in st.session_state:
+    st.session_state["fed_log"] = ""
 
 
 all_numbers = [st.session_state["counter_0"], st.session_state["counter_1"], st.session_state["counter_2"],
@@ -419,7 +418,7 @@ if train_button:
     captured_output_fed = io.StringIO()
     with contextlib.redirect_stdout(captured_output_fed):
         fl.client.start_numpy_client("localhost:8080", client=CifarClient())
-    fed_train_log = captured_output_fed.getvalue()
+    st.session_state["fed_log"] = captured_output_fed.getvalue()
 
     ###### train local #####
     model_local = keras.Sequential([
@@ -450,7 +449,7 @@ if train_button:
             captured_output_local = io.StringIO()
             with contextlib.redirect_stdout(captured_output_local):
                 local_trained_model = model_local.fit(x_train, y_train, epochs=2, batch_size=32)
-            local_train_log = captured_output_local.getvalue()
+            st.session_state["local_log"] = captured_output_local.getvalue()
 
             local_score = model_local.evaluate(x_test, y_test, verbose=0)
             local_val_score.append(local_score[1])

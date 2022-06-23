@@ -7,8 +7,8 @@
       <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/Ergebnisse.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Ergebnisse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/2_Dateneingabe_und_Training_starten.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Ergebnisse.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/3_Ergebnisse.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Dateneingabe_und_Training_starten" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="2_Dateneingabe_und_Training_starten" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dev_demonstrator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -68,7 +68,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pages/Dateneingabe_und_Training_starten.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pages/2_Dateneingabe_und_Training_starten.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -79,7 +79,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Dateneingabe_und_Training_starten" />
+        <item itemvalue="Python.2_Dateneingabe_und_Training_starten" />
       </list>
     </recent_temporary>
   </component>
@@ -101,7 +101,7 @@
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
       <workItem from="1654863518659" duration="50288000" />
-      <workItem from="1655904311417" duration="6858000" />
+      <workItem from="1655904311417" duration="8040000" />
     </task>
     <servers />
   </component>
