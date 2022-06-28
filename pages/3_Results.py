@@ -9,23 +9,20 @@ from streamlit_drawable_canvas import st_canvas
 import plotly.express as px
 
 st.set_page_config(
-     page_title="Ergebnisse",
+     page_title="Results",
      page_icon="🚀",
      layout="wide",
      initial_sidebar_state="expanded"
     )
 
-st.title("Ergebnisseite")
-st.sidebar.markdown("# Ergebnisseite")
+st.title("Results")
 result = st.session_state["result"]
-
-
 
 
 try:
     col7, col8 = st.columns(2)
     with col7:
-        st.write("Vergleich der Genauigkeit auf den Trainingsdaten pro FL-Runde.")
+        st.write("Comparison of accuracy on training data per FL round.")
 
         # show results from current FL Durchgang
         st.dataframe(result[["Lokal (fit)", "Föderiert (fit)"]])
@@ -33,16 +30,16 @@ try:
         # plot result
         fig_fit = px.line(result[["Lokal (fit)", "Föderiert (fit)"]])
         fig_fit.update_layout(
-            title="Genauigkeit Modelle per Runde",
-            xaxis_title="FL-Runden",
-            yaxis_title="Genauigkeit",
-            legend_title="Modelle")
+            title="Accuracy per round",
+            xaxis_title="FL-rounds",
+            yaxis_title="Accuracy",
+            legend_title="Models")
 
         fig_fit.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_fit)
 
     with col8:
-        st.write("Vergleich der Genauigkeit auf den Validierungsdaten pro FL-Runde.")
+        st.write("Comparison of accuracy on validation data per FL round.")
 
         # show results from current FL Durchgang
         st.dataframe(result[["Lokal (val)", "Föderiert (val)"]])
@@ -59,22 +56,20 @@ try:
 
 
 except:
-    st.write("Es wurde noch kein Training durchgeführt!")
+    st.error("No training has been performed yet!")
     pass
 
-st.subheader("Klassifizierung")
-st.write("Nun prüfen wir ob unser föderriertes Modell auch eine gute Vorhersage treffen kann.")
+st.subheader("Classification")
+st.write("Now we check if our federated model can also make a good prediction.")
 
-#load_model for classification
-model = load_model('fit_global_model')
+
 
 col3, col4 = st.columns(2)
 
 with col3:
     SIZE = 192
     # Create a canvas component
-
-    canvas_result = st_canvas(
+    canvas_result_1 = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=20,
         stroke_color="#ffffff",
@@ -83,15 +78,17 @@ with col3:
         height=300,
         width=300,
         display_toolbar=True,
-        key="MNIST_predict"
-    )
+        key="MNIST_predict")
 
 with col4:
-    if canvas_result.image_data is not None:
-        img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
+    if canvas_result_1.image_data is not None:
+        img = cv2.resize(canvas_result_1.image_data.astype('uint8'), (28, 28))
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
         st.write('Model Input')
         st.image(rescaled)
+    
+    #load_model for classification
+    model = load_model('fit_global_model')
 
     if st.button('Predict'):
         test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -101,8 +98,8 @@ with col4:
 
 
 st.subheader("Log-Files")
-with st.expander("Hier findest du die Log Daten des lokalen Trainings"):
+with st.expander("Here you can find the log data of the local training"):
         st.write(st.session_state["local_log"])
 
-with st.expander("Hier findest du die Log Daten des Föderierten Trainings"):
+with st.expander("Here you can find the log data of the federated training"):
         st.write(st.session_state["fed_log"])

@@ -28,7 +28,12 @@ import io
 
 
 # streamlit config
-st.set_page_config(layout='wide') #centered
+st.set_page_config(
+     page_title="Data input",
+     page_icon="🚀",
+     layout="wide",
+     initial_sidebar_state="expanded"
+    )
 
 # global variables
 round_counter = 1
@@ -37,22 +42,22 @@ perround_weights = []
 fed_weights = []
 
 
-# Sidebar
-with st.sidebar:
-    st.subheader("Hier ist die Kommandzentrale")
-    train_button = st.button("Am Föderierten Training teilnehmen")
-    load_data_button = st.button("Daten einlesen.")
-    reset_button = st.button("Daten zurücksetzen")
+
+
+
 
 ################################################## data_input ###################################################
-st.header("Dateneingabe")
+st.header("Data input")
 
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown("**Jetzt bist du gefragt! Generiere Daten für unseren Demonstrator.**")
-    st.markdown("Wie in der rechten Abbildung gezeigt!")
-with col2:
-    st.image("pictures/how_to_draw_192.gif")
+st.subheader("Control Center")
+col11, col22 = st.columns(2)
+with col11:
+    st.write("If you don't want to draw a lot of numbers yourself, you can also load a prebuilt dataset.")
+    load_data_button = st.button("Import data")
+with col22:
+    st.write("hier kommt noch was hin.")
+    reset_button = st.button("Reset data")
+
 
 # um Platz zwischen die Elemente zubekommen.
 st.markdown("")
@@ -127,8 +132,10 @@ d = {'0er': st.session_state["counter_0"], '1er': st.session_state["counter_1"],
 
 col3, col4 = st.columns([1, 3])
 with col3:
+    st.markdown("**Now it's your turn! Generate data for our demonstrator.**")
+    st.info("Important!!! First draw the number then press save button and then the trash can icon!")
     number_to_draw = st.session_state["number"]
-    st.markdown(f"### Zeichne die Nummer: {number_to_draw}")
+    st.markdown(f"### Draw the number: {number_to_draw}")
 
     # Create a canvas component
     canvas_result = st_canvas(
@@ -142,12 +149,17 @@ with col3:
         display_toolbar=True,
         key="MNIST_input")
 
-    save_button = st.button("Speichern")
+    save_button = st.button("Save image")
+    
+    
+    st.image("pictures/how_to_draw_192.gif")
+
+    
 
 with col4:
     st.markdown(
-        "So sieht der Computer die Zahlen. Alle 0-Werte stehen für die Farbe schwarz und alle Werte um die 255 für die Farbe weiß.")
-    st.markdown("In dieser Form werden die Zahlen dem neuronalen Netz übergeben!")
+        "This is how the computer sees the numbers. All 0-values stand for the color black and all values around 255 for the color white.")
+    st.markdown("In this form the numbers are passed to the neural network!")
     if canvas_result.image_data is not None:
         image_temp = canvas_result.image_data
         image2 = image_temp.copy()
@@ -161,7 +173,7 @@ st.write("")
 st.write("")
 st.write("")
 
-st.markdown("**Auflistung der Anzahl schon gezeichneter Zahlen**")
+st.markdown("**Listing already drawn numbers**")
 df = pd.DataFrame(data=d, index=["Anzahl"])
 st.dataframe(df)
 
@@ -181,7 +193,7 @@ if load_data_button:
         st.session_state["image"] = np_images.tolist()
         np_y_train = arr["y"]
         st.session_state["y_train"] = np_y_train.tolist()
-        st.write("Daten wurden erfolgreich geladen.")
+        st.write("Data was loaded successfully.")
         st.write(np.shape(st.session_state["image"]))
         st.write(np.shape(st.session_state["y_train"]))
 
@@ -199,7 +211,7 @@ if load_data_button:
 
         # when drawing first number file does not exists
     else:
-        st.write("Es wurden noch keine Daten gespeichert!")
+        st.error("No data has been saved yet!")
 
 
 # when pressing save_button save all steamlit_canvas data into variable
@@ -242,7 +254,7 @@ if save_button:
             st.session_state["counter_9"] += 1
 
 # Output of drawn numbers
-st.write("Zuletzt gezeichnete Zahlen:")
+st.write("Last drawn numbers:")
 try:
     col0, col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns(10)
     col0.image(images[-1])
@@ -259,6 +271,8 @@ except:
     pass
 
 ################################################## start_training ###################################################
+train_button = st.button("Participate in the Federated Training")
+
 if train_button:
     # reset score lists
     local_val_score = []
@@ -289,7 +303,7 @@ if train_button:
         x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
 
     else:
-        st.write("Training kann noch nicht gestartet werden, da zu wenig Daten erzeugt wurden.")
+        st.error("Training cannot be started yet, because too little data has been generated.")
 
     #(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
     x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
@@ -300,54 +314,43 @@ if train_button:
 
     # For display status
     #check_flag = st.empty()
-    with st.spinner('Mit Server verbinden...'):
-        time.sleep(2)
-        st.success('Erfolgreich mit Server Verbunden!')
+    
 
-    with st.expander("Klicke hier für detailierte Information zu den Trainingsdaten."):
-        st.markdown("### Aufteilung von Training- und Testdaten")
+    with st.spinner('Connect to server...'):
+        time.sleep(2)
+        st.success('Successfully connected to server!')
+
+    with st.expander("Click here for detailed information about the training data."):
+        st.markdown("### Splitting of training and test data")
         st.write(f"x_train shape: {x_train.shape}")
         st.write(f"{x_train.shape[0]} train samples")
         st.write(f"{x_test.shape[0]} test samples")
-        st.write(f"Die Trainingsdaten sind {sys.getsizeof(x_train)} Bytes groß.")
+        st.write(f"The training data are {sys.getsizeof(x_train)} Bytes large.")
 
     global check_flag
     check_flag = st.empty()
     check_flag.write(
-        "Server prüft ob benötige Anzahl von Clients mit dem Server verbunden sind, um das Training starten zu können...")
+        "Server checks if required number of clients are connected to the server to start the training...")
 
     # Define Flower client
     class CifarClient(fl.client.NumPyClient):
 
         def get_parameters(self):
-
-            """with st.spinner('Mit Server verbinden...'):
-                time.sleep(2)
-                st.success('Erfolgreich mit Server Verbunden!')
-
-            with st.expander("Klicke hier für detailierte Information zu den Trainingsdaten."):
-                st.markdown("### Aufteilung von Training- und Testdaten")
-                st.write(f"x_train shape: {x_train.shape}")
-                st.write(f"{x_train.shape[0]} train samples")
-                st.write(f"{x_test.shape[0]} test samples")
-                st.write(f"Die Trainingsdaten sind {sys.getsizeof(x_train)} Bytes groß.")
-
-            global check_flag
-            check_flag = st.empty()
-            check_flag.write("Server prüft ob benötige Anzahl von Clients mit dem Server verbunden sind, um das Training starten zu können...")"""
+            """Get parameters of the local model."""
+            raise Exception("Not implemented (server-side parameter initialization)")
 
 
         def fit(self, parameters, config):
             global round_counter
             check_flag.empty()
             if round_counter == 1:
-                st.success('Die benötige Anzahl an Clients haben sich mit dem Server verbunden!')
-                with st.spinner('Training wird gestartet...'):
+                st.success('The required number of clients have connected to the server!')
+                with st.spinner('Training is started...'):
                     time.sleep(1)
-                    st.success(f'Training auf den {sum(all_numbers)} erzeugten Zahlen erfolgreich gestartet!')
+                    st.success(f'Training on the {sum(all_numbers)} generated numbers successfully launched!')
 
             #########################################################################################################
-                with st.spinner("Aktuelles Modell wird vom Server geladen..."):
+                with st.spinner("Current model is loaded from the server..."):
                     time.sleep(2)
                     # Load new model architecture as dic
                     model_arch_dic = config["model"]
@@ -366,30 +369,31 @@ if train_button:
                                          metrics=[config["metrics"]])
 
                     self.model = loaded_model
-                    st.success('Aktuelles Modell erfolgreich vom Server geladen!')
+                    st.success('Latest model successfully loaded from server!')
 
             #########################################################################################################
             if round_counter == 1:
-                with st.spinner("Initale Parameter werden vom geladen..."): # vom Server?
+                with st.spinner("Initial parameters are loaded from the..."): # vom Server?
                     time.sleep(2)
                     global initial_weights
                     initial_weights = self.model.get_weights()
-                    st.success('Initale Parameter erfolgreich geladen!') # vom Server?
+                    st.success('Initial parameters loaded successfully!') # vom Server?
 
             if round_counter > 2:
-                with st.expander(f"Empfangene Gewichte vom Server"):
+                with st.expander(f"Weights received from server"):
                     self.model.set_weights(parameters)
-                    st.write(f"Die empfangen Gewichte sind {sys.getsizeof(self.model.get_weights())} Bytes groß.")
+                    self.model.save("fit_global_model") ### model speichern 
+                    st.write(f"The weights received are {sys.getsizeof(self.model.get_weights())} bytes large.")
                     st.write(self.model.get_weights())
                     fig = px.imshow(self.model.get_weights()[2])
                     st.plotly_chart(fig)
 
-            with st.spinner(f"Wir befinden uns gerade in Runde {round_counter} des föderrierten Trainings... "):
+            with st.spinner(f"We are currently in round {round_counter} of federated training..."):
                 self.model.set_weights(parameters)
                 r = self.model.fit(x_train, y_train, epochs=2, batch_size=32)
                 fed_score = self.model.evaluate(x_test, y_test, verbose=0)
-                self.model.save("fit_global_model")
-                st.success(f'Training der Runde {round_counter} erfolgreich beendet und aktualisiertes Modell mit angepassten Gewichten wurde erfolgreich an Server zurück geschickt!')
+                
+                st.success(f'Training of round {round_counter} successfully completed and updated model with adjusted weights successfully sent back to server!')
 
             hist = r.history
             train_acc = hist["accuracy"][-1]
@@ -398,27 +402,29 @@ if train_button:
             global perround_weights
             perround_weights = self.model.get_weights()
 
-            st.write(f"Es wurde in dieser Runde eine Genauigkeit von {train_acc} auf den Trainingsdaten erreicht.")
+            st.write(f"An accuracy of {train_acc} on the training data was achieved in this round.")
 
-            with st.expander(f"Berechnete Gewichte der Runde {round_counter}"):
-                st.write(f"Die berechneten Gewichte sind {sys.getsizeof(self.model.get_weights())} Bytes groß.")
+            with st.expander(f"Calculated weights of the round {round_counter}"):
+                st.write(f"The weights calculated are{sys.getsizeof(self.model.get_weights())} bytes large.")
                 st.write(self.model.get_weights())
 
-            st.info("Warte auf aktualisierte Gewichte von Server ...")
+            st.info("Waiting for updated weights from server ...")
             round_counter += 1
 
             return self.model.get_weights(), len(x_train), {}
 
         def evaluate(self, parameters, config):
             self.model.set_weights(parameters)
+            self.model.save("fit_global_model")
             loss, accuracy = self.model.evaluate(x_test, y_test)
             return loss, len(x_test), {"accuracy": accuracy}
 
     # Start Flower client
     captured_output_fed = io.StringIO()
-    with contextlib.redirect_stdout(captured_output_fed):
-        fl.client.start_numpy_client("localhost:8080", client=CifarClient())
-    st.session_state["fed_log"] = captured_output_fed.getvalue()
+    with st.spinner("Wait until the training has been finished!"):
+        with contextlib.redirect_stdout(captured_output_fed):
+            fl.client.start_numpy_client("localhost:8080", client=CifarClient())
+        st.session_state["fed_log"] = captured_output_fed.getvalue()
 
     ###### train local #####
     model_local = keras.Sequential([
@@ -444,7 +450,7 @@ if train_button:
             st.write("Angepasste Gewichte des Modells (Training der letzten Runde auf lokalen Daten)")
             st.write(perround_weights)
 
-    with st.spinner("Zum Vergleich wird jetzt noch das Training auf den lokalen Daten  ausgeführt..."):
+    with st.spinner("For comparison, the training is now executed on the local data..."):
         for _ in range(5):
             captured_output_local = io.StringIO()
             with contextlib.redirect_stdout(captured_output_local):
@@ -457,9 +463,9 @@ if train_button:
             fit_hist = local_trained_model.history
             local_train_acc.append(fit_hist["accuracy"][-1])
 
-        st.success("Lokales Training abgeschlossen")
+        st.success("Local training finished")
 
-    with st.expander("Hier kannst du die Ergebnisse der letzten Runde zusammengefasst anschauen."):
+    with st.expander("Here you can see a summary of the results of the last round."):
         # results from local training
         df_val_temp = pd.DataFrame(data=local_val_score, columns=["Lokal (val)"])
         df_fit_temp = pd.DataFrame(data=local_train_acc, columns=["Lokal (fit)"])
