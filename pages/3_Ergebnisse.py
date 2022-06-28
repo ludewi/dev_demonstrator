@@ -20,10 +20,9 @@ st.sidebar.markdown("# Ergebnisseite")
 result = st.session_state["result"]
 
 
-if result is result.empty:
-    st.write("Es wurde noch kein Training durchgeführt!")
 
-else:
+
+try:
     col7, col8 = st.columns(2)
     with col7:
         st.write("Vergleich der Genauigkeit auf den Trainingsdaten pro FL-Runde.")
@@ -58,6 +57,11 @@ else:
         fig_val.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_val)
 
+
+except:
+    st.write("Es wurde noch kein Training durchgeführt!")
+    pass
+
 st.subheader("Klassifizierung")
 st.write("Nun prüfen wir ob unser föderriertes Modell auch eine gute Vorhersage treffen kann.")
 
@@ -69,6 +73,7 @@ col3, col4 = st.columns(2)
 with col3:
     SIZE = 192
     # Create a canvas component
+
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=20,
@@ -78,7 +83,8 @@ with col3:
         height=300,
         width=300,
         display_toolbar=True,
-        key="MNIST_predict")
+        key="MNIST_predict"
+    )
 
 with col4:
     if canvas_result.image_data is not None:
@@ -100,4 +106,3 @@ with st.expander("Hier findest du die Log Daten des lokalen Trainings"):
 
 with st.expander("Hier findest du die Log Daten des Föderierten Trainings"):
         st.write(st.session_state["fed_log"])
-
