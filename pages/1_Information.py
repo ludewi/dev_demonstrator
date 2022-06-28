@@ -8,8 +8,8 @@ st.set_page_config(
      initial_sidebar_state="expanded"
     )
 
-st.title("Information page")
-st.markdown("**Here you can find basic information about our demonstrator.**")
+st.title("Information page", anchor=None)
+st.markdown("**Here you find basic information about our demonstrator.**")
 
 example = st.container()
 example.subheader('What is the MNIST dataset?')

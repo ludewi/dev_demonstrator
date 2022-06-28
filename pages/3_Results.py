@@ -15,7 +15,7 @@ st.set_page_config(
      initial_sidebar_state="expanded"
     )
 
-st.title("Results")
+st.title("Results", anchor=None)
 result = st.session_state["result"]
 
 
@@ -47,10 +47,10 @@ try:
         # plot result
         fig_val = px.line(result[["Lokal (val)", "Föderiert (val)"]])
         fig_val.update_layout(
-            title="Genauigkeit Modelle per Runde",
-            xaxis_title="FL-Runden",
-            yaxis_title="Genauigkeit",
-            legend_title="Modelle")
+            title="Accuracy per round",
+            xaxis_title="FL-rounds",
+            yaxis_title="Accuracy",
+            legend_title="Models")
         fig_val.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_val)
 
