@@ -27,7 +27,6 @@ if "fed_log" not in st.session_state:
 st.title("Results")
 result = st.session_state["result"]
 
-
 try:
     col7, col8 = st.columns(2)
     with col7:
@@ -66,16 +65,14 @@ except:
     st.error("No training has been performed yet!")
     pass
 
-
 st.subheader("Classification")
 st.write("Now we check if our federated model can also make a good prediction.")
 
 col3, col4 = st.columns(2)
-
 with col3:
     SIZE = 192
     # Create a canvas component
-    canvas_result_1 = st_canvas(
+    canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=20,
         stroke_color="#ffffff",
@@ -87,8 +84,8 @@ with col3:
         key="MNIST_predict")
 
 with col4:
-    if canvas_result_1.image_data is not None:
-        img = cv2.resize(canvas_result_1.image_data.astype('uint8'), (28, 28))
+    if canvas_result.image_data is not None:
+        img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
         st.write('Model Input')
         st.image(rescaled)
@@ -97,8 +94,8 @@ with col4:
     model = load_model('fit_global_model')
 
     if st.button('Predict'):
-        test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        val = model.predict(test_x.reshape(-1, 28, 28,1))
+        x_test = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        val = model.predict(x_test.reshape(-1, 28, 28,1))
         st.write(f'result: {np.argmax(val[0])}')
         st.bar_chart(val[0])
 

@@ -10,7 +10,6 @@ import pandas as pd
 from streamlit_drawable_canvas import st_canvas
 import cv2
 
-
 # streamlit config
 st.set_page_config(
      page_title="Data input",
@@ -18,7 +17,6 @@ st.set_page_config(
      layout="wide",
      initial_sidebar_state="expanded"
     )
-
 
 ################################################## data_input ###################################################
 st.title("Local Data")
@@ -99,7 +97,6 @@ if "fed_log" not in st.session_state:
 if "bg" not in st.session_state:
     st.session_state["bg"] = "#000000"
 
-
 all_numbers = [st.session_state["counter_0"], st.session_state["counter_1"], st.session_state["counter_2"],
                st.session_state["counter_3"], st.session_state["counter_4"], st.session_state["counter_5"],
                st.session_state["counter_6"], st.session_state["counter_7"], st.session_state["counter_8"],
@@ -111,7 +108,6 @@ d = {'0er': st.session_state["counter_0"], '1er': st.session_state["counter_1"],
      '6er': st.session_state["counter_6"], '7er': st.session_state["counter_7"], '8er': st.session_state["counter_8"],
      '9er': st.session_state["counter_9"], "Gesamt": sum(all_numbers)}
 
-
 st.subheader("1. Data input")
 st.markdown("**Now it's your turn! First generate data for our demonstrator. Than take part in a federated training**")
 col3, col4 = st.columns([1, 3])
@@ -122,8 +118,6 @@ with col3:
     st.markdown(f"### Draw the number: {number_to_draw}")
 
     # Create a canvas component
-
-    #print(st.session_state["bg"])
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=20,
@@ -156,8 +150,6 @@ with col4:
         image2 = cv2.resize(image2, (28, 28))
         df_1 = pd.DataFrame(data=image2)
         st.dataframe(df_1, height=700)
-
-
 
 st.write("")
 st.write("")
@@ -204,7 +196,6 @@ if load_data_button:
         st.session_state["counter_8"] = np.count_nonzero(np_y_train == 8)#np_y_train.count("8")
         st.session_state["counter_9"] = np.count_nonzero(np_y_train == 9)#np_y_train.count("9")
         time.sleep(2)
-
         st.experimental_rerun()
     # when drawing first number file does not exists
     else:
@@ -232,7 +223,6 @@ if reset_button:
     st.session_state["counter_8"] = 0
     st.session_state["counter_9"] = 0
     time.sleep(2)
-
     st.experimental_rerun()
 
 # when pressing save_button save all steamlit_canvas data into variable
@@ -276,9 +266,7 @@ if save_button:
 
         number = np.random.randint(0, high=10, size=None, dtype=int)
         st.session_state["number"] = number
-
     st.experimental_rerun()
-
 
 # Output of drawn numbers
 st.write("Last drawn numbers:")
@@ -294,7 +282,5 @@ try:
     col7.image(st.session_state["image"][-8])
     col8.image(st.session_state["image"][-9])
     col9.image(st.session_state["image"][-10])
-
-
 except:
     pass

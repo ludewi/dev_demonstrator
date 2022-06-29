@@ -12,7 +12,6 @@ from sklearn.model_selection import train_test_split
 import json
 import matplotlib.pyplot as plt
 import plotly.express as px
-# for caputring stdout
 import contextlib
 import io
 
@@ -241,7 +240,6 @@ if train_button:
             local_train_acc.append(fit_hist["accuracy"][-1])
 
         st.success("Local training finished")
-
 
     # results from local training
     df_val_temp = pd.DataFrame(data=local_val_score, columns=["Lokal (val)"])

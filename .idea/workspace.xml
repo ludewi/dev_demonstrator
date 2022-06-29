@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client1_get_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/client1_get_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2.py" beforeDir="false" afterPath="$PROJECT_DIR$/client2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_data.npz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_data.npz" beforeDir="false" afterPath="$PROJECT_DIR$/image_data.npz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/2_Local_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/2_Local_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/3_Federated Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/3_Federated_training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/3_Federated_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/3_Federated_training.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/4_Results.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/4_Results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_sendModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_sendModel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,9 +51,9 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pictures" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/old" />
-      <recent name="$PROJECT_DIR$/pictures" />
       <recent name="$PROJECT_DIR$/pages" />
     </key>
   </component>
@@ -105,7 +104,7 @@
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
       <workItem from="1654863518659" duration="50288000" />
-      <workItem from="1655904311417" duration="52348000" />
+      <workItem from="1655904311417" duration="54613000" />
     </task>
     <servers />
   </component>

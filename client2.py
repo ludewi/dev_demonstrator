@@ -69,7 +69,7 @@ from keras.preprocessing.image import ImageDataGenerator
 datagen = ImageDataGenerator(rotation_range=rotation_range_val)
 # fit the generator
 datagen.fit(x_train.reshape(x_train.shape[0], 28, 28, 1))
-
+print(np_x_train.shape)
 class FlowerClient(fl.client.NumPyClient):
     def __init__(self, x_train, y_train, x_test, y_test):
         self.x_train, self.y_train = x_train, y_train
