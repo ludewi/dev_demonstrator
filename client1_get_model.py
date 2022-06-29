@@ -131,7 +131,7 @@ def main() -> None:
         return np.array(dx), np.array(dy)
 
     #Vorgabe der Datenverteilung
-    dist = [4000, 4000, 4000, 10, 10, 10, 10, 10, 10, 10]
+    dist = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
 
     # Aufrufen der Funktion getData
     x_train, y_train = getData(dist, x_train, y_train)
@@ -144,8 +144,7 @@ def main() -> None:
     fl.client.start_numpy_client(
         server_address="localhost:8080", 
         client=client,
-        root_certificates=(
-            Path(r"C:\Users\Matthias\Desktop\HS Karlsruhe\4. Semester\Masterthesis\Git\fed-learning-code\Certificate\server1.crt").read_bytes())
+
     )
 
 

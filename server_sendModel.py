@@ -3,6 +3,10 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, final
 
 import flwr as fl
 from tensorflow import keras
+from keras.models import Sequential
+from keras.layers import Conv2D, Lambda, MaxPooling2D # convolution layers
+from keras.layers import Dense, Dropout, Flatten # core layers
+from keras.layers import BatchNormalization
 
 
 def main() -> None:
@@ -11,14 +15,36 @@ def main() -> None:
     # 2. server-side parameter evaluation
     # Load and compile Keras model
 
-
-
-    model = keras.Sequential([
-        keras.layers.Flatten(input_shape=(28,28)),
+    model= keras.Sequential([
+        keras.layers.Flatten(input_shape=(28, 28)),
         keras.layers.Dense(128, activation='relu'),
         keras.layers.Dense(256, activation='relu'),
         keras.layers.Dense(10, activation='softmax')
     ])
+
+    """model = Sequential()
+
+    # model.add(Lambda(standardize,input_shape=(28,28,1)))
+    model.add(Conv2D(filters=64, kernel_size=(3, 3), activation="relu", input_shape=(28, 28, 1)))
+    model.add(Conv2D(filters=64, kernel_size=(3, 3), activation="relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(BatchNormalization())
+
+    model.add(Conv2D(filters=128, kernel_size=(3, 3), activation="relu"))
+    model.add(Conv2D(filters=128, kernel_size=(3, 3), activation="relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(BatchNormalization())
+
+    model.add(Conv2D(filters=256, kernel_size=(3, 3), activation="relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(BatchNormalization())
+
+    model.add(Flatten())
+    model.add(Dense(512, activation="relu"))
+
+    model.add(Dense(10, activation="softmax"))"""
+
+    model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
     model.compile(optimizer="adam", 
                   loss="sparse_categorical_crossentropy", 
                   metrics=["accuracy"])
@@ -90,7 +116,7 @@ def fit_config(rnd: int):
 
     config = {
         "batch_size": 32,
-        "local_epochs": 1 if rnd < 2 else 5,
+        "local_epochs": 10,
         "model": loaded_model_json,
         "optimizer": "adam", 
         "loss": "sparse_categorical_crossentropy",

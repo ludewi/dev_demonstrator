@@ -10,6 +10,7 @@ import pandas as pd
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 import json
+import matplotlib.pyplot as plt
 import plotly.express as px
 # for caputring stdout
 import contextlib
@@ -62,7 +63,7 @@ if train_button:
         X = x_train
         y = np_y_train
 
-        X, y = shuffle(X, y, random_state=0)
+        #X, y = shuffle(X, y, random_state=0)
 
         # test train split
         x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
@@ -70,8 +71,8 @@ if train_button:
     else:
         st.error("Training cannot be started yet, because too little data has been generated.")
 
-    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-    #x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
+    #(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+    x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
 
     # reset round counter
     #global round_counter
@@ -84,6 +85,22 @@ if train_button:
         st.write(f"{x_train.shape[0]} train samples")
         st.write(f"{x_test.shape[0]} test samples")
         st.write(f"The training data are {sys.getsizeof(x_train)} bytes large.")
+
+        st.write("Sample of the training data")
+        # define number of images to show
+        num_row = 2
+        num_col = 8
+        num = num_row * num_col
+        # get images
+        images = x_train[0:num]
+        labels = y_train[0:num]
+        # plot images
+        fig, axes = plt.subplots(num_row, num_col, figsize=(1.5 * num_col, 2 * num_row))
+        for i in range(num):
+            ax = axes[i // num_col, i % num_col]
+            ax.imshow(images[i], cmap='gray_r')
+            ax.set_title('Label: {}'.format(labels[i]))
+        st.pyplot(fig)
 
     global check_flag
     check_flag = st.empty()
@@ -161,7 +178,7 @@ if train_button:
             global perround_weights
             perround_weights = self.model.get_weights()
 
-            st.write(f"An accuracy of {train_acc} on the training data was achieved in this round.")
+            st.write(f"An accuracy of {np.round(train_acc,3)} on the training data was achieved in this round.")
 
             with st.expander(f"Calculated weights of the round {round_counter}"):
                 st.write(f"The weights calculated are{sys.getsizeof(self.model.get_weights())} bytes large.")
@@ -243,5 +260,5 @@ if train_button:
     st.session_state["result"].index += 1
 
     st.subheader("Federated learning performs compared to local training as shown below")
-    st.metric(label="Accuracy Federated", value=result["Föderiert (val)"].iloc[-1], delta="1.0%")
-    st.metric(label="Accuracy Local", value=result["Lokal (val)"].iloc[-1], delta="1.0%")
+    st.metric(label="Accuracy Federated", value=np.round(result["Föderiert (val)"].iloc[-1], 3))
+    st.metric(label="Accuracy Local", value=np.round(result["Lokal (val)"].iloc[-1], 3))

@@ -136,10 +136,9 @@ with col3:
         key="MNIST_input")
 
     #print(st.session_state["bg"])
-    if st.session_state["bg"] == "#000010":
-        #print("hier")
-        st.session_state["bg"] = "#000000"
-        st.experimental_rerun()
+    #if st.session_state["bg"] == "#000010":
+    #    st.session_state["bg"] = "#000000"
+    #    st.experimental_rerun()
 
     save_button = st.button("save image")
     st.image("pictures/how_to_draw_192.gif")
@@ -192,7 +191,7 @@ if load_data_button:
         load_data2.write(np.shape(st.session_state["image"]))
         load_data3.write(np.shape(st.session_state["y_train"]))
 
-
+        st.session_state["number"] = 1
         # Update already drawn numbers
         st.session_state["counter_0"] = np.count_nonzero(np_y_train == 0)#np_y_train.count("0")
         st.session_state["counter_1"] = np.count_nonzero(np_y_train == 1)#np_y_train.count("1")
@@ -238,10 +237,9 @@ if reset_button:
 
 # when pressing save_button save all steamlit_canvas data into variable
 if save_button:
-    st.session_state["bg"] = "#000010"
+    #st.session_state["bg"] = "#000010"
     # Anzeige welche Zahlen gezeichnet werden müssen
-    number = np.random.randint(0, high=10, size=None, dtype=int)
-    st.session_state["number"] = number
+
     if canvas_result.image_data is not None:
         image = canvas_result.image_data
         image1 = image.copy()
@@ -249,32 +247,35 @@ if save_button:
         image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
         image1 = cv2.resize(image1, (28, 28))
         st.session_state["image"].append(image1)
-        st.session_state["y_train"].append(number)
+        st.session_state["y_train"].append(st.session_state["number"])
 
         # save numpy array persistence into .npz file
         np.savez("image_data.npz", x=st.session_state["image"], y=st.session_state["y_train"])
 
         # Counter to check how many numbers were drawn
-        if number == 0:
+        if st.session_state["number"] == 0:
             st.session_state["counter_0"] += 1
-        if number == 1:
+        if st.session_state["number"] == 1:
             st.session_state["counter_1"] += 1
-        if number == 2:
+        if st.session_state["number"] == 2:
             st.session_state["counter_2"] += 1
-        if number == 3:
+        if st.session_state["number"] == 3:
             st.session_state["counter_3"] += 1
-        if number == 4:
+        if st.session_state["number"] == 4:
             st.session_state["counter_4"] += 1
-        if number == 5:
+        if st.session_state["number"] == 5:
             st.session_state["counter_5"] += 1
-        if number == 6:
+        if st.session_state["number"] == 6:
             st.session_state["counter_6"] += 1
-        if number == 7:
+        if st.session_state["number"] == 7:
             st.session_state["counter_7"] += 1
-        if number == 8:
+        if st.session_state["number"] == 8:
             st.session_state["counter_8"] += 1
-        if number == 9:
+        if st.session_state["number"] == 9:
             st.session_state["counter_9"] += 1
+
+        number = np.random.randint(0, high=10, size=None, dtype=int)
+        st.session_state["number"] = number
 
     st.experimental_rerun()
 
@@ -293,6 +294,7 @@ try:
     col7.image(st.session_state["image"][-8])
     col8.image(st.session_state["image"][-9])
     col9.image(st.session_state["image"][-10])
+
+
 except:
     pass
-

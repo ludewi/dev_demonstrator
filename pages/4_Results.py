@@ -24,7 +24,7 @@ if "local_log" not in st.session_state:
 if "fed_log" not in st.session_state:
     st.session_state["fed_log"] = ""
 
-st.title("Results", anchor=None)
+st.title("Results")
 result = st.session_state["result"]
 
 
@@ -47,8 +47,6 @@ try:
         fig_fit.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_fit)
 
-
-
     with col8:
         st.write("Comparison of accuracy on validation data per FL round.")
 
@@ -64,8 +62,6 @@ try:
             legend_title="Models")
         fig_val.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_val)
-
-
 except:
     st.error("No training has been performed yet!")
     pass
@@ -73,8 +69,6 @@ except:
 
 st.subheader("Classification")
 st.write("Now we check if our federated model can also make a good prediction.")
-
-
 
 col3, col4 = st.columns(2)
 
@@ -104,10 +98,9 @@ with col4:
 
     if st.button('Predict'):
         test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        val = model.predict(test_x.reshape(1, 28, 28))
+        val = model.predict(test_x.reshape(-1, 28, 28,1))
         st.write(f'result: {np.argmax(val[0])}')
         st.bar_chart(val[0])
-
 
 st.subheader("Log-Files")
 with st.expander("Here you can find the log data of the local training"):
