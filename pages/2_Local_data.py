@@ -21,7 +21,7 @@ st.set_page_config(
 ################################################## data_input ###################################################
 st.title("Local Data")
 
-col11, col22 = st.columns(2)
+col11, col22, col33 = st.columns(3)
 with col11:
     st.write("If you don't want to draw a lot of numbers yourself, you can also load a prebuilt dataset.")
     load_data_button = st.button("Import data")
@@ -34,6 +34,12 @@ with col22:
     reset_data1 = st.empty()
     reset_data2 = st.empty()
     reset_data3 = st.empty()
+with col33:
+    st.write("Save your generated numbers.")
+    save_data_button = st.button("Save data")
+    save_data1 = st.empty()
+    save_data2 = st.empty()
+    save_data3 = st.empty()
 
 # um Platz zwischen die Elemente zubekommen.
 st.markdown("")
@@ -103,10 +109,10 @@ all_numbers = [st.session_state["counter_0"], st.session_state["counter_1"], st.
                st.session_state["counter_9"]]
 
 # Tabel of the number of numbers already drawn
-d = {'0er': st.session_state["counter_0"], '1er': st.session_state["counter_1"], '2er': st.session_state["counter_2"],
-     '3er': st.session_state["counter_3"], '4er': st.session_state["counter_4"], '5er': st.session_state["counter_5"],
-     '6er': st.session_state["counter_6"], '7er': st.session_state["counter_7"], '8er': st.session_state["counter_8"],
-     '9er': st.session_state["counter_9"], "Gesamt": sum(all_numbers)}
+d = {'0s': st.session_state["counter_0"], '1s': st.session_state["counter_1"], '2s': st.session_state["counter_2"],
+     '3s': st.session_state["counter_3"], '4s': st.session_state["counter_4"], '5s': st.session_state["counter_5"],
+     '6s': st.session_state["counter_6"], '7s': st.session_state["counter_7"], '8s': st.session_state["counter_8"],
+     '9s': st.session_state["counter_9"], "total": sum(all_numbers)}
 
 st.subheader("1. Data input")
 st.markdown("**Now it's your turn! First generate data for our demonstrator. Than take part in a federated training**")
@@ -161,7 +167,7 @@ if sum(all_numbers) % 10 == 0:
         "Enough numbers drawn? Join the federated training by going to the federated training tab and clicking the join training button")
 
 st.markdown("**Listing already drawn numbers**")
-df = pd.DataFrame(data=d, index=["Anzahl"])
+df = pd.DataFrame(data=d, index=["count"])
 st.dataframe(df)
 
 
@@ -213,7 +219,7 @@ if reset_button:
     # Update already drawn numbers
     st.session_state["number"] = 1
     st.session_state["counter_0"] = 0
-    st.session_state["counter_1"] = 1
+    st.session_state["counter_1"] = 0
     st.session_state["counter_2"] = 0
     st.session_state["counter_3"] = 0
     st.session_state["counter_4"] = 0
@@ -222,6 +228,16 @@ if reset_button:
     st.session_state["counter_7"] = 0
     st.session_state["counter_8"] = 0
     st.session_state["counter_9"] = 0
+    time.sleep(2)
+    st.experimental_rerun()
+
+if save_data_button:
+    # save numpy array persistence into .npz file
+    np.savez("image_data.npz", x=st.session_state["image"], y=st.session_state["y_train"])
+    # text ausgabe gui
+    save_data1.write("Data was saved successfully.")
+    save_data2.write(np.shape(st.session_state["image"]))
+    save_data3.write(np.shape(st.session_state["y_train"]))
     time.sleep(2)
     st.experimental_rerun()
 
@@ -239,8 +255,7 @@ if save_button:
         st.session_state["image"].append(image1)
         st.session_state["y_train"].append(st.session_state["number"])
 
-        # save numpy array persistence into .npz file
-        np.savez("image_data.npz", x=st.session_state["image"], y=st.session_state["y_train"])
+
 
         # Counter to check how many numbers were drawn
         if st.session_state["number"] == 0:
