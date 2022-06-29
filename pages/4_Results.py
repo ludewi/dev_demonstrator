@@ -15,6 +15,15 @@ st.set_page_config(
      initial_sidebar_state="expanded"
     )
 
+if "result" not in st.session_state:
+    st.session_state["result"] = pd.DataFrame()
+
+if "local_log" not in st.session_state:
+    st.session_state["local_log"] = ""
+
+if "fed_log" not in st.session_state:
+    st.session_state["fed_log"] = ""
+
 st.title("Results", anchor=None)
 result = st.session_state["result"]
 
@@ -38,6 +47,8 @@ try:
         fig_fit.update_yaxes(range=(0.0, 1.0))
         st.plotly_chart(fig_fit)
 
+
+
     with col8:
         st.write("Comparison of accuracy on validation data per FL round.")
 
@@ -58,6 +69,7 @@ try:
 except:
     st.error("No training has been performed yet!")
     pass
+
 
 st.subheader("Classification")
 st.write("Now we check if our federated model can also make a good prediction.")
