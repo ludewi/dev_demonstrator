@@ -2,9 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/pages/5_4_Results.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pictures/connectServer.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pictures/connectServer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pictures/rec_global.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pictures/rec_initial.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pictures/send_model.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pictures/training.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_data.npz" beforeDir="false" afterPath="$PROJECT_DIR$/image_data.npz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/2_Local_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/2_Local_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/3_Federated_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/3_2_Participation_in_the_Federated_Training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/4_Results.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/Aufbau_FL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/Credits_Lukas_Matthias.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/Fed_learn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/Funktion.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/how_to_draw.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/ml_model.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pictures/mytable.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +116,7 @@
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
       <workItem from="1654863518659" duration="50288000" />
-      <workItem from="1655904311417" duration="55864000" />
+      <workItem from="1655904311417" duration="76099000" />
     </task>
     <servers />
   </component>

@@ -49,7 +49,7 @@ st.markdown("")
 
 # set session_state for number counter
 if "counter_0" not in st.session_state:
-    st.session_state["counter_0"] = 1
+    st.session_state["counter_0"] = 0
 
 if "counter_1" not in st.session_state:
     st.session_state["counter_1"] = 0
@@ -93,12 +93,6 @@ if "y_train" not in st.session_state:
 # session state for result over all FL rounds
 if "result" not in st.session_state:
     st.session_state["result"] = pd.DataFrame()
-
-if "local_log" not in st.session_state:
-    st.session_state["local_log"] = ""
-
-if "fed_log" not in st.session_state:
-    st.session_state["fed_log"] = ""
 
 if "bg" not in st.session_state:
     st.session_state["bg"] = "#000000"
