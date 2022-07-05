@@ -18,6 +18,9 @@ st.set_page_config(
      initial_sidebar_state="expanded"
     )
 
+with st.sidebar:
+    st.subheader("Client ID: 001")
+
 ### Buttons ###
 m = st.markdown("""
 <style>

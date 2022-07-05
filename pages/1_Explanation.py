@@ -12,6 +12,9 @@ st.title('Explanation')
 explanantion_name = ['1. Tradition machine learning', '2. Federated Learning', '3. Design of the demonstrator', '4. MNIST-Dataset']
 explanantion = st.radio('', explanantion_name)
 
+with st.sidebar:
+    st.subheader("Client ID: 001")
+
 if explanantion == '1. Tradition machine learning':
     with st.container():
         st.subheader('How does tradition machine learning works?')
@@ -23,7 +26,7 @@ if explanantion == '1. Tradition machine learning':
         col1, col2, col3 = st.columns([1, 1, 1])
         col1.image("pictures/tradition_ml.PNG", width=370, caption="1. Data is collected on a central Server")
         col2.image("pictures/model_server.gif", caption="2. Machine Learning Modell is trained on central Server")
-        col3.image("pictures/tradition_ml_model.PNG", width=380, caption="3. Machine Learning Modell is send to Clients")
+        col3.image("pictures/data_with_pred.PNG", width=380, caption="3. Clients send a request and recieve a prediction on their data")
 elif explanantion == '2. Federated Learning':
     with st.container():
         st.subheader('What is federated learning and how does it work?')
@@ -43,7 +46,7 @@ elif explanantion == '2. Federated Learning':
 
         st.markdown("1. First, all clients download the current ML model (such as Logistic Regression, CNN, FFNN) from the server.")
         st.markdown("2. The clients train the model on their local data. This causes the parameters (usually the weights of a neural network) to be adjusted. Since each client has different data, the models of all clients will also have **different parameters** after training.")
-        st.markdown("3. Once the training of the clients on the local data is completed, they **send back only the adjusted parameters to the server**.")
+        st.markdown("3. Once the training of the clients on the local data is completed, they **only send back the adjusted parameters to the server**.")
         st.markdown("4. The server **aggregates** all received parameters into a new fitted model.")
         st.markdown("Steps 1-4 are executed several times. Thus, it is possible to train a global ML model without exchanging local data with a central instance. "
                         "(vgl. McMahan et al., 2017)")

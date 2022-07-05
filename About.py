@@ -11,6 +11,8 @@ def main():
              'About': "https://www.h-ka.de"
          }
     )
+    with st.sidebar:
+        st.subheader("Client ID: 001")
     st.image("pictures/HKA.png")
     st.title("Federated Learning Demonstrator", anchor=None)
     st.markdown("by Lukas Delbrück and Matthias Ewald")

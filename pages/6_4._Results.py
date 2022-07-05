@@ -12,6 +12,9 @@ st.set_page_config(
      initial_sidebar_state="expanded"
     )
 
+with st.sidebar:
+    st.subheader("Client ID: 001")
+
 if "initial_weights" not in st.session_state:
     st.session_state["initial_weights"] = []
 
