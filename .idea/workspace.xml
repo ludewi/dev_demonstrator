@@ -3,6 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client2.py" beforeDir="false" afterPath="$PROJECT_DIR$/client2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client3.py" beforeDir="false" afterPath="$PROJECT_DIR$/client3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Credits_Lukas_Matthias1.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/HKA_Logo_Logoleiste.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Lukas.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/SERVER_Logo_ServerLeiste.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/gif.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/demonstrator_allinone.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/p2_demonstrator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/p2_demonstrator_V2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_streamlit.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +108,7 @@
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
       <workItem from="1654863518659" duration="50288000" />
-      <workItem from="1655904311417" duration="84772000" />
+      <workItem from="1655904311417" duration="85744000" />
     </task>
     <servers />
   </component>

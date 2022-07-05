@@ -1,16 +1,12 @@
 import os
-
 import flwr as fl
 import tensorflow as tf
 from tensorflow import keras
 
-
 # Make TensorFlow log less verbose
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-
 # Load model and data (MobileNetV2, CIFAR-10)
-
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28,28)),
     keras.layers.Dense(128, activation='relu'),
@@ -36,7 +32,6 @@ class CifarClient(fl.client.NumPyClient):
         model.set_weights(parameters)
         loss, accuracy = model.evaluate(x_test, y_test)
         return loss, len(x_test), {"accuracy": accuracy}
-
 
 # Start Flower client
 fl.client.start_numpy_client("localhost:8080", client=CifarClient()) #10.166.33.132:2103 localhost:8080
