@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f60948a0-17ed-4983-b64b-4b20ccffd71b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/keras_metadata.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fit_global_model/saved_model.pb" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/saved_model.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.data-00000-of-00001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fit_global_model/variables/variables.index" beforeDir="false" afterPath="$PROJECT_DIR$/fit_global_model/variables/variables.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/3_2_Participation_in_the_Federated_Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/3_2_Participation_in_the_Federated_Training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/4_3_Test_the_federated_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/4_3_Test_the_federated_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/5_4_Results.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/5_4_Results.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,16 +29,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/lukas/PycharmProjects/dev_demonstrator&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/lukas/PycharmProjects/dev_demonstrator/pictures"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pictures" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -102,7 +96,7 @@
       <workItem from="1654682007440" duration="136000" />
       <workItem from="1654863457151" duration="32000" />
       <workItem from="1654863518659" duration="50288000" />
-      <workItem from="1655904311417" duration="83193000" />
+      <workItem from="1655904311417" duration="84772000" />
     </task>
     <servers />
   </component>
