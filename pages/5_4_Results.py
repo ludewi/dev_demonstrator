@@ -12,6 +12,12 @@ st.set_page_config(
      initial_sidebar_state="expanded"
     )
 
+if "initial_weights" not in st.session_state:
+    st.session_state["initial_weights"] = []
+
+if "fedround_weights" not in st.session_state:
+    st.session_state["fedround_weights"] = []
+
 if "result" not in st.session_state:
     st.session_state["result"] = pd.DataFrame()
 
@@ -56,16 +62,18 @@ except:
     st.error("No training has been performed yet!")
     pass
 
-with st.expander("Comparison of weights from beginning to end"):
-    col5, col6 = st.columns(2)
-    with col5:
-        st.write("Representation of the third layer of initial weights received from the server")
-        fig = px.imshow(st.session_state["initial_weights"][2])
-        st.plotly_chart(fig)
-        st.write(st.session_state["initial_weights"])
 
-    with col6:
-        st.write("Representation of the third layer of the weights after laster round of federated learning")
-        fig = px.imshow(st.session_state["perround_weights"][2])
-        st.plotly_chart(fig)
-        st.write(st.session_state["perround_weights"])
+if st.session_state["initial_weights"] != []:
+    with st.expander("Comparison of weights from beginning to end"):
+        col5, col6 = st.columns(2)
+        with col5:
+            st.write("Representation of the third layer of initial weights received from the server")
+            fig = px.imshow(st.session_state["initial_weights"][2])
+            st.plotly_chart(fig)
+            st.write(st.session_state["initial_weights"])
+
+        with col6:
+            st.write("Representation of the third layer of the weights after last round of federated learning")
+            fig = px.imshow(st.session_state["perround_weights"][2])
+            st.plotly_chart(fig)
+            st.write(st.session_state["perround_weights"])

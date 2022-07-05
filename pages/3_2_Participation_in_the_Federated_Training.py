@@ -12,12 +12,11 @@ import json
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-
 # streamlit config
 st.set_page_config(
      page_title="Federated training",
      page_icon="🚀",
-     layout="wide",
+     layout="centered",
      initial_sidebar_state="expanded"
     )
 
@@ -26,9 +25,8 @@ round_counter = 1
 if "initial_weights" not in st.session_state:
     st.session_state["initial_weights"] = []
 
-if "perround_weights" not in st.session_state:
-    st.session_state["perround_weights"] = []
-
+if "fedround_weights" not in st.session_state:
+    st.session_state["fedround_weights"] = []
 
 st.title("2. Federated training")
 
@@ -46,24 +44,22 @@ if train_button:
     fed_train_acc = []
     fed_val_score = []
     ################################################## Prepare Data ###################################################
-    # Load dataset
-    np_x_train = np.array(st.session_state["image"])
-    np_y_train = np.array(st.session_state["y_train"])
 
-    # Skalieren der Daten
-    x_train_norm = []
-    for i in range(len(np_x_train)):
-        x_train_norm.append(np_x_train[i] / 255)
+    # Load data
+    np_xtrain = np.array(st.session_state["image"])
+    np_ytrain = np.array(st.session_state["y_train"])
 
-    # reshaping the Data
-    x_train = np.array(x_train_norm).reshape(-1, 28, 28, 1)
+    # scaling data
+    norm_xtrain = []
+    for i in range(len(np_xtrain)):
+        norm_xtrain.append(np_xtrain[i] / 255)
 
-    # shuffle  data
+    # reshaping data
+    x_train = np.array(norm_xtrain).reshape(-1, 28, 28, 1)
+
     if len(st.session_state["y_train"]) > 10:  # da fehler meldung wenn noch keine daten erzeugt wurden
         X = x_train
-        y = np_y_train
-
-        #X, y = shuffle(X, y, random_state=0)
+        y = np_ytrain
 
         # test train split
         x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
@@ -71,12 +67,10 @@ if train_button:
     else:
         st.error("Training cannot be started yet, because too little data has been generated.")
 
-
     #(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
     x_train, y_train, x_test, y_test = x_train, y_train, x_test, y_test
 
     # reset round counter
-    #global round_counter
     round_counter = 1
 
     # For display status
@@ -87,7 +81,8 @@ if train_button:
         st.write(f"{x_test.shape[0]} test samples")
         st.write(f"The training data are {sys.getsizeof(x_train)} bytes large.")
 
-        st.write("Sample of the training data")
+        # plot local data
+        st.subheader("Sample of local generated training data")
         # define number of images to show
         num_row = 2
         num_col = 8
@@ -105,8 +100,7 @@ if train_button:
 
     global check_flag
     check_flag = st.empty()
-    check_flag.info(
-        "Server checks if required number of clients are connected to the server to start the training...")
+    check_flag.info("Server checks if required number of clients are connected to the server to start the training...")
 
     # Define Flower client
     class Client(fl.client.NumPyClient):
@@ -119,15 +113,14 @@ if train_button:
             global round_counter
             check_flag.empty()
             if round_counter == 1:
-                with st.spinner('Connect to server...'):
-                    connectServer =st.empty()
-                    connectServer.image("pictures/connectServer.png")
+                with st.spinner('Connecting to server...'):
+                    connect_server = st.empty()
+                    connect_server.image("pictures/connectServer.png")
                     time.sleep(2)
-                    connectServer.success("Successful to Server connected")
-                    connectServer.empty()
+                    connect_server.success("Successful to Server connected")
+                    connect_server.empty()
 
                 st.info('The required number of clients have connected to the server!')
-
 
             #########################################################################################################
                 with st.spinner("Model is loaded from the server..."):
@@ -150,13 +143,13 @@ if train_button:
                                      metrics=[config["metrics"]])
                 self.model = loaded_model
 
-                # übergabe von Hyperparameter für lokales traiing
+                # übergabe von Hyperparameter für lokales training
                 global batch_size
                 batch_size = config["local_epochs"]
                 global epochs
                 epochs = config["batch_size"]
-
             #########################################################################################################
+
             st.header(f"Round {round_counter} of federated Training")
             if round_counter == 1:
                 with st.spinner("Receiving initial parameters from Server"):
@@ -165,53 +158,54 @@ if train_button:
                     time.sleep(3)
                     rec_initial.empty()
                     st.session_state["initial_weights"] = self.model.get_weights()
-                    recieved_weights = st.session_state["initial_weights"]
+                    received_weights = st.session_state["initial_weights"]
                     st.success('Initial parameters loaded successfully!')
 
             if round_counter > 1:
-                #resetting output
+                # resetting output
                 global waiting_server
                 waiting_server.empty()
 
-                # show receiving model
+                # receiving model
                 rec_global = st.empty()
                 rec_global.image("pictures/rec_global.gif")
                 time.sleep(3)
                 rec_global.empty()
-                recieved_weights = self.model.set_weights(parameters)
+                self.model.set_weights(parameters)
+                received_weights = self.model.get_weights()
                 st.success("Successfully received global model parameter!")
 
+            # train model
             with st.spinner(f"Global model is being trained on local data"):
                 training = st.empty()
                 training.image("pictures/training.gif")
-                self.model.set_weights(parameters)
                 r = self.model.fit(x_train, y_train, epochs=config["local_epochs"], batch_size=config["batch_size"])
                 fed_score = self.model.evaluate(x_test, y_test, verbose=0)
                 time.sleep(5)
                 training.empty()
                 st.success(f'Training  successfully completed!')
 
-            #send back
+            # send back
             send_model = st.empty()
             send_model.image("pictures/send_model.gif")
             time.sleep(3)
             send_model.empty()
             st.success("Successfully send updated model to server!")
 
-            #show accuracy
+            # show accuracy
             hist = r.history
-            train_acc = hist["accuracy"][-1]
             fed_train_acc.append(hist["accuracy"][-1])
             fed_val_score.append(fed_score[1])
-            st.session_state["perround_weights"] = self.model.get_weights()
+            st.session_state["fedround_weights"] = self.model.get_weights()
             st.write(f"An accuracy of {np.round(fed_score[1], 3)} on unknown data was achieved in this round.")
 
+            # show weights
             with st.expander(f"Summary of exchanged weights from round {round_counter} of federated training"):
                 col5, col6 = st.columns(2)
                 with col5:
                     st.write("Received weights")
-                    st.write(f"The weights received are {sys.getsizeof(recieved_weights)} bytes large.")
-                    st.write(recieved_weights)
+                    st.write(f"The weights received are {sys.getsizeof(received_weights)} bytes large.")
+                    st.write(received_weights)
                 with col6:
                     st.write("Calculated weights")
                     st.write(f"The weights calculated are{sys.getsizeof(self.model.get_weights())} bytes large.")
@@ -232,7 +226,7 @@ if train_button:
     # Start Flower client
     fl.client.start_numpy_client("localhost:8080", client=Client())
 
-    ###### train local #####
+    # set train local model
     model_local = keras.Sequential([
         keras.layers.Flatten(input_shape=(28, 28)),
         keras.layers.Dense(128, activation='relu'),
@@ -244,10 +238,11 @@ if train_button:
                         loss="sparse_categorical_crossentropy",
                         metrics=["accuracy"])
 
-    # resseting output
+    # resetting output
     global waiting_server
     waiting_server.empty()
 
+    # training only on local data
     with st.spinner("For comparison, the training is now executed on the local data..."):
         for _ in range(round_counter-1):
             local_trained_model = model_local.fit(x_train, y_train, epochs=epochs, batch_size=batch_size)
@@ -270,10 +265,10 @@ if train_button:
     result = pd.concat([df_val_temp, df_fed_val_temp, df_fit_temp, df_fed_fit_temp], axis=1)
 
     # Appending result from current round to dataframe where all results are stored
-    #st.session_state["result"] = pd.concat([st.session_state["result"], result], ignore_index=True, axis=0)
     st.session_state["result"] = result
     st.session_state["result"].index += 1
 
+    # show final results
     st.header("Result of Federated learning vs. training with local data only")
-    st.metric(label="Accuracy on unkown data for Federated training", value=np.round(result["federated (val)"].iloc[-1], 3))
+    st.metric(label="Accuracy on unknown data for federated training", value=np.round(result["federated (val)"].iloc[-1], 3))
     st.metric(label="Accuracy on unknown data for training with local data only", value=np.round(result["local (val)"].iloc[-1], 3))

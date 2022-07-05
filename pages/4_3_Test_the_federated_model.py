@@ -9,7 +9,6 @@ import plotly.express as px
 st.subheader("Classification")
 st.write("Now we check if our federated model can also make a good prediction.")
 
-
 col3, col4 = st.columns(2)
 with col3:
     SIZE = 192
