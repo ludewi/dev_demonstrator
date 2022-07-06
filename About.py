@@ -13,8 +13,9 @@ def main():
     )
     with st.sidebar:
         st.subheader("Client ID: 001")
+
     st.image("pictures/HKA.png")
-    st.title("Federated Learning Demonstrator", anchor=None)
+    st.title("Federated Learning Demonstrator")
     st.markdown("by Lukas Delbrück and Matthias Ewald")
     st.markdown("")
     st.markdown("")

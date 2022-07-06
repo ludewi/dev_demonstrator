@@ -1,10 +1,10 @@
-"""Result page V1. Results from Fed training and local Traing displayed on this page
-    and classifiction """
+"""Result page. Results from Fed training and local Traing displayed on this page. """
 
 import pandas as pd
 import streamlit as st
 import plotly.express as px
 
+# general page settings
 st.set_page_config(
      page_title="Results",
      page_icon="🚀",
@@ -15,6 +15,9 @@ st.set_page_config(
 with st.sidebar:
     st.subheader("Client ID: 001")
 
+st.title("4. Results")
+
+# set session state variables
 if "initial_weights" not in st.session_state:
     st.session_state["initial_weights"] = []
 
@@ -24,15 +27,15 @@ if "fedround_weights" not in st.session_state:
 if "result" not in st.session_state:
     st.session_state["result"] = pd.DataFrame()
 
-st.title("4. Results")
 result = st.session_state["result"]
 
+# show results if available
 try:
     col7, col8 = st.columns(2)
     with col7:
         st.write("Comparison of accuracy on training data per FL round.")
 
-        # show results from current FL Durchgang
+        # show results from latest FL round
         st.dataframe(result[["local (fit)", "federated (fit)"]])
 
         # plot result
@@ -65,7 +68,7 @@ except:
     st.error("No training has been performed yet!")
     pass
 
-
+# graphical representation
 if st.session_state["initial_weights"] != []:
     with st.expander("Comparison of weights from beginning to end"):
         col5, col6 = st.columns(2)

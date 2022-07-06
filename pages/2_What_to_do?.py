@@ -13,7 +13,7 @@ st.title("What to do?", anchor=None)
 with st.sidebar:
     st.subheader("Client ID: 001")
 
-#quick_start = st.container()
+
 st.write('Quick Start Guide - Here are your tasks are:')
 col1, col2, col3 = st.columns([1, 1, 1])
 with col1:
