@@ -18,7 +18,7 @@ Welcome to the Federated Learning Demonstrator which has some necessary function
 │ ├── 6_4._Results.py
 ├── pictrues/
 ├── .gitignore
-├── About.py
+├── client.py
 ├── client2_own_data_generated.py
 ├── client3_with_MNIST_data.py
 ├── image_data.npz
@@ -53,7 +53,7 @@ source /path/to/venv/bin/activate
 ### How to use Demonstrator
 Start the demonstrator with 
 ```shell
-streamlit run About.py
+streamlit run client.py
 ```
 
 Start the Server with 
